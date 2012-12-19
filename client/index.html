@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Logserver admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Bootstrap -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+      <header>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+              <a class="brand" href="#">Logserver admin</a>
+              <div class="nav-collapse collapse">
+                <p class="navbar-text pull-right">
+                  Logged in as <a href="#" class="navbar-link">anonymous</a>
+                </p>
+                <ul class="nav">
+                  <li class="active"><a href="#">Home</a></li>
+                  <!--li><a href="#about">About</a></li-->
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="span3">
+            <div class="well sidebar-nav">
+              <ul class="nav nav-list">
+                <li class="nav-header">Sidebar</li>
+                <li class="active"><a href="#">Logserver view</a></li>
+                <li><a href="#phpcode">PHP client</a></li>
+              </ul>
+            </div><!--/.well -->
+          </div><!--/span-->
+          <div class="span9">
+            <div class="hero-unit">
+              <!--h1>Logserver admin</h1-->
+              <p>
+                <table>
+                  <tr><th>Requests/sec</th></tr>
+                  <tr><td>Mean :         </td><td><span id="rps_mean"></span></td></tr>
+                  <tr><td>Count :        </td><td><span id="rps_count"></span></td></tr>
+                  <tr><td>Current Rate : </td><td><span id="rps_current_rate"></span></td></tr>
+                  <tr><td>Max Rate :     </td><td><span id="rps_max_rate"></span></td></tr>
+                  <tr><td>1 min rate :   </td><td><span id="rps_1MinuteRate"></span></td></tr>
+                  <tr><td>5 min rate :   </td><td><span id="rps_5MinuteRate"></span></td></tr>
+                  <tr><td>15 min rate :  </td><td><span id="rps_15MinuteRate"></span></td></tr>
+                  <tr><th>Other</th></tr>
+                  <tr><td>Memory Usage:  </td><td><span id="mem_usage"></span></td></tr>
+                  <tr><td>Uptime:        </td><td><span id="uptime"></span></td></tr>
+                  <tr><th>Log lines</th></tr>
+                  <tr><td>&nbsp;</td><td><xmp id="last_log_lines"class=""></xmp></td></tr>
+                </table>
+              </p>
+            </div>
+          </div><!--/span-->
+        </div><!--/row-->
+        <div class="row-fluid">
+          <div class="span4">
+            <a name="what"></a>
+            <h2>What is this?</h2>
+            <p>
+              UDP logserver. Purpose is to collect excessive logging and save it to file without latency.
+            </p>
+          </div><!--/span-->
+          <div class="span4">
+            <a name="why"></a>
+            <h2>Why this?</h2>
+            <p>
+              An UDP logger removes the latency from connecting to a server or writing to a filehandle. 
+              We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
+            </p>
+          </div><!--/span-->
+          <div class="span4">
+            <a name="how"></a>
+            <h2>How does this work?</h2>
+            <p>
+              You create an UDP package inside you code and send it to the server without waiting for a reply.
+            </p>
+          </div><!--/span-->
+        </div><!--/row-->
+
+
+        <div class="row-fluid">
+          <div class="span12">
+            <a name="phpcode"></a>
+            <h2>PHP howto</h2>
+            <p>
+<code class="language-php">
+&lt;?php
+  $server_ip   = '10.179.2.71';
+  $server_port = 8080;
+  $message     = 'Hello World';
+
+  print "Sending UDP to IP $server_ip, port $server_port\n";
+
+  if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
+    socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
+  } else {
+    print("can't create socket\n");
+  }
+?&gt;
+</code>
+        </p>
+        <!--p><a class="btn" href="#">View details &raquo;</a></p-->
+      </div><!--/span-->
+    </div><!--/row-->
+
+
+    <hr>
+    <footer>
+      <p>&copy; Schibsted Payment AS 2012</p>
+    </footer>
+  </div><!--/.fluid-container-->
+  
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/websocket.js"></script>
+  <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+  <script type="text/javascript">$.SyntaxHighlighter.init();</script>
+</body>
+</html>

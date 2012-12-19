@@ -1,0 +1,21 @@
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+table {
+  width : 100%;
+}
+.sidebar-nav {
+  padding: 9px 0;
+}
+#last_log_lines {
+  height: 250px;
+  overflow: auto;
+  width: 700px;
+  display: block;
+}
+
+xmp {
+  font-size: 0.8em;
+  line-height: 1.0em;
+}
