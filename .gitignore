@@ -10,3 +10,4 @@ example/twitter_mongodb.js
 config/config.js
 *.iml
 .idea/
+examples/
