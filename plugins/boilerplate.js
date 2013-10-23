@@ -3,14 +3,14 @@ var Plugin = function () {
     var version = '0.0.1';
     var counter = {};
 
-    function format (message) {
+    function format(message) {
         var msg = message;
         // Format string...
         //
         return msg;
     }
 
-    function local_event (udp_server, message) {
+    function local_event(udp_server, message) {
         // Attach to events
         udp_server.on('message', function (message) {
             var json = JSON.parse(message);
@@ -22,19 +22,19 @@ var Plugin = function () {
             }
             if (json.text.match(/tour de france/gi)) {
                 console.log('test.js : '
-                            + uname + ': '
-                            + JSON.stringify(json.text)
-                            + ' (' + counter[uname] + ')'
-                            );
+                    + uname + ': '
+                    + JSON.stringify(json.text)
+                    + ' (' + counter[uname] + ')'
+                );
             }
         });
     }
 
     // Export functions and vars
     that = {
-        version     : version,
-        format      : format,
-        local_event : local_event
+        version: version,
+        format: format,
+        local_event: local_event
     };
 
     // Return object to make functions accessible.

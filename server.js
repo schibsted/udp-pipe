@@ -1,13 +1,13 @@
 // Version
 var version = '1.1';
 console.log("\n\n"
-            + 'SPiD UDP LogServer ' + version
-            + "\n"
-            + '============================='
-            + "");
+    + 'SPiD UDP LogServer ' + version
+    + "\n"
+    + '============================='
+    + "");
 
 // Modules.
-var colors       = require('colors');
+var colors = require('colors');
 
 var Util = require('./lib/util.js');
 var util = new Util();
@@ -18,7 +18,7 @@ var argv = util.process_args();
 // TODO: Merge argv and opt with arg as primary
 
 // Options for the server.
-var opt     = require(argv.c || './config/config.js');
+var opt = require(argv.c || './config/config.js');
 
 var Logserver = require('./lib/logserver.js');
 var logserver = new Logserver();
@@ -45,7 +45,8 @@ logserver.web_socket_server(opt);
 
 // Launch server instance.
 logserver.db_mongo_connect(opt, function (err, mongo, collection) {
-    if (err) { throw err; }
+    if (err)
+        throw err;
     logserver.udp_server(opt, mongo);
 });
 
