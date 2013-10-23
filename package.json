@@ -1,7 +1,8 @@
 {
   "name": "UDPlogger",
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js",
+    "test": "mocha --colors --recursive"
   },
   "version": "0.2.5",
   "engines": {
@@ -19,5 +20,8 @@
     "optimist" : "0.3.4",
     "tail"     : "*",
     "ws"       : "0.4.22"
+  },
+  "devDependencies": {
+     "mocha": "*"
   }
 }
