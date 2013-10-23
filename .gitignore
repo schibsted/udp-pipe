@@ -8,5 +8,5 @@ node_modules/
 sync.sh
 example/twitter_mongodb.js
 config/config.js
-
-
+*.iml
+.idea/
