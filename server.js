@@ -44,9 +44,4 @@ logserver.web_server(opt, __dirname);
 logserver.web_socket_server(opt);
 
 // Launch server instance.
-logserver.db_mongo_connect(opt, function (err, mongo, collection) {
-    if (err)
-        throw err;
-    logserver.udp_server(opt, mongo);
-});
-
+logserver.udp_server(opt);
