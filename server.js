@@ -1,5 +1,5 @@
 // Version
-var version = '0.2.5 beta';
+var version = '1.1';
 console.log("\n\n"
             + 'SPiD UDP LogServer ' + version
             + "\n"

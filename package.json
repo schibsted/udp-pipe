@@ -1,13 +1,14 @@
 {
-  "name": "UDP logserver",
+  "name": "UDPlogger",
   "scripts": {
     "start": "server.js"
   },
   "version": "0.2.5",
   "engines": {
-    "node": "0.8.x"
+    "node": "v1.1"
   },
   "dependencies": {
+    "aws-sdk"  : "*",
     "bunyan"   : "0.6",
     "colors"   : "0.6.0",
     "express"  : "3.0.0",
