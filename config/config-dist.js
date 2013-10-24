@@ -12,7 +12,16 @@ module.exports = {
         web_socket_port    : 9999
     },
     plugins : {
+        'boilerplate.js' : {
+            enabled : false,
+            name  : 'logserver_boilerplate',
+            path  : '/tmp/',
+            file  : 'logserver_boilerplate.log',
+            level : 'trace'
+        },
+
         'file_logger.js' : {
+            enabled : true,
             name  : 'logserver',
             path  : '/tmp/',
             file  : 'logserver.log',
