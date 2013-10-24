@@ -1,4 +1,4 @@
-var Boilerplate = function () {
+var Filelogger = function () {
     var that;
     var version = '1.0.0';
     var counter = {};
@@ -30,13 +30,7 @@ var Boilerplate = function () {
         } else {
             counter[uname]++;
         }
-        if (json.text.match(/norway/gi)) {
-            console.log('test.js : '
-                + uname + ': '
-                + JSON.stringify(json.text)
-                + ' (' + counter[uname] + ')'
-            );
-        }
+        logger.trace(json);
     }
 
     // Export functions and vars
@@ -50,4 +44,4 @@ var Boilerplate = function () {
     return that;
 };
 
-module.exports = Boilerplate;
+module.exports = Filelogger;

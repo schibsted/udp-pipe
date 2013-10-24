@@ -31,22 +31,20 @@ You create an UDP package inside you code and send it to the server without wait
 
 ### Local instance
 
+- Install Node.js: http://nodejs.org/download/
 - Get code base via svn.
 - Install Node.js
 - Go to code base dir.
 
 Run cmd:
 
-    cd ~/
-    git clone https://
-
-    npm install grunt-cli
-
+    npm install -g grunt-cli
+    cd ~/<your project folder>/
+    git clone git@github.com:schibsted/UDPlogger.git
+    cd UDPlogger
+    npm install
     cp ./config/config-dist.js ./config/config.js
     node server.js
-
-    # Or run with config-dist.js
-    node server.js -c ./config/config-dist.js
 
 
 ### Server instance

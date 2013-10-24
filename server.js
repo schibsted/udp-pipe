@@ -28,11 +28,9 @@ console.log('lib/logserver.js version : ' + logserver.version.yellow);
 process.on('SIGHUP', function () {
     util.clog('Got SIGHUP signal.'.red);
     util.clog('Recycling log handles.'.red);
-    logserver.logger(opt);
+    logserver.reload_process(opt);
 });
 
-// Setup logger
-logserver.logger(opt);
 
 // Create process stats logging.
 logserver.process_stats(opt);
@@ -44,9 +42,4 @@ logserver.web_server(opt, __dirname);
 logserver.web_socket_server(opt);
 
 // Launch server instance.
-logserver.db_mongo_connect(opt, function (err, mongo, collection) {
-    if (err)
-        throw err;
-    logserver.udp_server(opt, mongo);
-});
-
+logserver.udp_server(opt);
