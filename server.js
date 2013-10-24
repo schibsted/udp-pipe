@@ -9,8 +9,7 @@ console.log("\n\n"
 // Modules.
 var colors = require('colors');
 
-var Util = require('./lib/util.js');
-var util = new Util();
+var util = require('./lib/util.js');
 console.log('lib/util.js version : ' + util.version.yellow);
 
 // TODO: Merge config file and opt with config file as primary OR should we do this only for the master process?
