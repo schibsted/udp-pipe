@@ -16,7 +16,8 @@ module.exports = {
             name  : 'logserver',
             path  : '/tmp/',
             file  : 'logserver.log',
-            level : 'trace'
+            level : 'trace',
+            disabled: false
         }
 
     }
