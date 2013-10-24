@@ -40,6 +40,8 @@ Run cmd:
     cd ~/
     git clone https://
 
+    npm install grunt-cli
+
     cp ./config/config-dist.js ./config/config.js
     node server.js
 
