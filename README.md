@@ -3,11 +3,19 @@ UDPlogger
 
 __What is this?__
 
-UDP logserver. Purpose is to collect excessive logging and save it to file without latency.
+UDP logserver. Purpose is to collect excessive logging and have plugins take action on the
+incoming messages.
+
+Standard plugins are:
+
+- file_logger.js : Save messages to file in JSON format. This is used for logging and importing into Splunk.
+-
 
 __Why this?__
 
-An UDP logger removes the latency from connecting to a server or writing to a filehandle. We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
+An UDP logger removes the latency from connecting to a server or writing to a filehandle.
+We then stream the file into a tool like Splunk. That way we can store both formats for
+future tools.
 
 __How does this work?__
 
@@ -45,6 +53,11 @@ Run cmd:
     cp ./config/config-dist.js ./config/config.js
     node server.js
 
+Now watch your UDPlogger in action:
+
+- Point your browser to http://127.0.0.1:9998/client/
+- Run one of the clients below to generate traffic.
+
 
 ### Server instance
 
@@ -52,8 +65,15 @@ Install Node.js.
 
     sudo apt-get install node
 
-- Install code base where you want it.
-- Go to code base dir.
+Install code base where you want it.
+
+    git clone git@github.com:schibsted/UDPlogger.git
+
+Install dependencies from package.json
+
+    npm install
+
+Go to code base dir.
 
 Edit and install upstart file.
 
@@ -123,7 +143,6 @@ Most settings is available from ./config/config.js.
 Make your own plugins to be able to:
 
 - Parse the message content and trigger actions.
-- Filter/alter the message content before inserted into logfile.
 
 This is how you do it:
 
@@ -134,6 +153,8 @@ This is how you do it:
 
 
 ## Deployment howto
+
+TODO: Must be rewritten to git.
 
 ### Tag a new release
 
