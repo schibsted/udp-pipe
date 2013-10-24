@@ -14,18 +14,37 @@ module.exports = function(grunt) {
                 },
                 src: ["test/*.coffee"]
             }
-        }
+        },
+        nodemon: {
+            dev: {
+                options: {
+                    file: 'server.js'
+                }
+            }
+        }/*,
+        concurrent: {
+            acceptanceTest: {
+                tasks: ['nodemon', 'mochaTest'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        }*/
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-nodemon');
+    //grunt.loadNpmTasks('grunt-concurrent');
 
     grunt.registerTask('default', ['jshint']);
     grunt.registerTask('test', 'mochaTest');
     grunt.registerTask('acceptance', function () {
         grunt.config.set('mochaTest.test.src', "test_acceptance/*.coffee");
         grunt.task.run('mochaTest');
+        //grunt.task.run('concurrent:acceptanceTest')
     });
-
-
+    grunt.registerTask('run', function() {
+        grunt.task.run('nodemon');
+    })
 }

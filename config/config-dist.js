@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins : {
         'boilerplate.js' : {
-            enabled : false,
+            disabled : true,
             name  : 'logserver_boilerplate',
             path  : '/tmp/',
             file  : 'logserver_boilerplate.log',
@@ -21,11 +21,11 @@ module.exports = {
         },
 
         'file_logger.js' : {
-            enabled : true,
+            disabled : false,
             name  : 'logserver',
             path  : '/tmp/',
             file  : 'logserver.log',
-            level : 'trace'
+            level : 'trace',
         }
 
     }
