@@ -1,8 +1,7 @@
-var Dumper = function () {
+var Dumper = function (options) {
     var version = '1.0.0';
     var counter = {};
     var logger;
-
 
     function init(opt){
         var Logger = require('bunyan');
@@ -22,6 +21,9 @@ var Dumper = function () {
     function execute(message) {
         logger.trace(message);
     }
+
+    // Call init when module is constructed.
+    init(options);
 
     return {
         version: version,

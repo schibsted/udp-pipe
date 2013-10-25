@@ -46,7 +46,7 @@ You create an UDP package inside you code and send it to the server without wait
 
 Run cmd:
 
-    npm install -g grunt-cli
+    sudo npm install -g grunt-cli
     cd ~/<your project folder>/
     git clone git@github.com:schibsted/UDPlogger.git
     cd UDPlogger
