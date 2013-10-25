@@ -21,13 +21,28 @@ module.exports = {
         },
 
         'file_logger.js' : {
-            disabled : false,
+            disabled : true,
             name  : 'logserver',
             path  : '/tmp/',
             file  : 'logserver.log',
-            level : 'trace',
-        }
+            level : 'trace'
+        },
 
+        'dumper.js': {
+            name: 'Dumper',
+            path: '/tmp/',
+            file: 'logserver_dumper.log',
+            level: 'trace',
+            disabled: true
+        },
+
+        'aws-sqs.js': {
+            disabled: true,
+            name: 'AWS SQS',
+            credentials_file: '/tmp/aws_credentials.json',
+            queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
+            batch_size: 10
+        }
     }
 };
 
