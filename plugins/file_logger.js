@@ -20,7 +20,7 @@ var Filelogger = function (options) {
         });
     }
 
-    function execute(message) {
+    function execute(message, callback) {
         var json = message;
         var uname = json.user.screen_name;
         if (counter[uname] === undefined) {
@@ -29,13 +29,15 @@ var Filelogger = function (options) {
             counter[uname]++;
         }
         logger.trace(json);
+        callback();
     }
 
     // Export functions and vars
     that = {
         version: version,
         init: init,
-        execute: execute
+        execute: execute,
+        name: "file_logger"
     };
 
     // Call init when module is constructed.

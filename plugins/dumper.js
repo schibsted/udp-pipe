@@ -18,8 +18,9 @@ var Dumper = function (options) {
         });
     }
 
-    function execute(message) {
+    function execute(message, callback) {
         logger.trace(message);
+        callback();
     }
 
     // Call init when module is constructed.
@@ -28,7 +29,8 @@ var Dumper = function (options) {
     return {
         version: version,
         init: init,
-        execute: execute
+        execute: execute,
+        name: "dumper"
     };
 };
 

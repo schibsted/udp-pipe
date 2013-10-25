@@ -20,7 +20,7 @@ var Boilerplate = function (options) {
         });
     }
 
-    function execute(message) {
+    function execute(message, callback) {
         var json = message;
         var uname = json.user.screen_name;
         if (counter[uname] === undefined) {
@@ -35,6 +35,7 @@ var Boilerplate = function (options) {
                 + ' (' + counter[uname] + ')'
             );
         }
+        callback();
     }
 
     // Export functions and vars
