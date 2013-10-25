@@ -18,7 +18,8 @@
     "ntwitter": "0.5.0",
     "optimist": ">=0.3.4",
     "tail": "*",
-    "ws": ">=0.4.22"
+    "ws": ">=0.4.22",
+    "node-uuid": "1.4.x"
   },
   "devDependencies": {
     "mocha": "*",
