@@ -1,13 +1,12 @@
 var AWS = require('aws-sdk');
 
-var aws_sqs = function () {
+var aws_sqs = function (options) {
     var version = '1.0.0';
     var sqs;
     var options;
 
-    function init(opt){
-        options = opt;
-        AWS.config.loadFromPath(opt.credentials_file);
+    function init(){
+        AWS.config.loadFromPath(options.credentials_file);
         sqs = new AWS.SQS({apiVersion: '2012-11-05'});
     }
 
@@ -26,6 +25,8 @@ var aws_sqs = function () {
             console.log("total time=" + total_time);
         });
     }
+
+    init();
 
     return {
         version: version,
