@@ -6,10 +6,10 @@
   },
   "version": "0.2.5",
   "engines": {
-    "node": "v1.1"
+    "node": "0.10.x"
   },
   "dependencies": {
-    "aws-sdk": "*",
+    "aws-sdk": "1.9.0",
     "bunyan": ">=0.6",
     "colors": ">=0.6.*",
     "express": ">=3.0.0",
