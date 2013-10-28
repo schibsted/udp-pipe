@@ -28,7 +28,6 @@ process.on('SIGHUP', function () {
     logserver.reload_process(opt);
 });
 
-stats_server.process_stats(opt);
-stats_server.start(opt, __dirname);
-
-logserver.start_udp_server(opt);
+var stats = stats_server.create_process_stats();
+stats_server.start(opt, __dirname, stats);
+logserver.start_udp_server(opt, stats);
