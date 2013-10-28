@@ -20,6 +20,12 @@ module.exports = function(grunt) {
                 options: {
                     file: 'server.js'
                 }
+            },
+            acceptance: {
+                options: {
+                    file: 'server.js',
+                    args: ['-c', './config/config-acceptance.js']
+                }
             }
         }/*,
         concurrent: {
@@ -42,9 +48,12 @@ module.exports = function(grunt) {
     grunt.registerTask('acceptance', function () {
         grunt.config.set('mochaTest.test.src', "test_acceptance/*.coffee");
         grunt.task.run('mochaTest');
-        //grunt.task.run('concurrent:acceptanceTest')
     });
     grunt.registerTask('run', function() {
         grunt.task.run('nodemon');
+    });
+    grunt.registerTask('runAcceptance', function() {
+        grunt.task.run('nodemon:acceptance');
     })
+
 }
