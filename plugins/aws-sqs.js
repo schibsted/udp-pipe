@@ -4,7 +4,6 @@ var uuid = require('node-uuid');
 var aws_sqs = function (options) {
     var version = '1.0.0';
     var sqs;
-    var name = "aws-sqs";
     var internal_queue = [];
 
     function init(){
@@ -25,7 +24,8 @@ var aws_sqs = function (options) {
                     QueueUrl: options.queue_url,
                     Entries: internal_queue
                 }, function(err, data) {
-                    callback();
+                    if(err) console.log("Error: " + err);
+                    else callback();
                 });
                 internal_queue = [];
             }
@@ -34,7 +34,8 @@ var aws_sqs = function (options) {
                 QueueUrl: options.queue_url,
                 MessageBody: JSON.stringify(message)
             }, function aws_sqs_callback(err, data) {
-                callback();
+                if(err) console.log("Error: " + err);
+                else callback();
             });
         }
     }
@@ -45,11 +46,8 @@ var aws_sqs = function (options) {
         version: version,
         init: init,
         execute: execute,
-        name: name
+        name: options.name
     };
 };
 
 module.exports = aws_sqs;
-
-
-
