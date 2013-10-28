@@ -1,8 +1,8 @@
 var Boilerplate = function (options) {
     var that;
     var version = '1.0.0';
-    var counter = {};
     var logger;
+    var name = "boilerplate";
 
     function init(opt){
         var Logger = require('bunyan');
@@ -21,19 +21,12 @@ var Boilerplate = function (options) {
     }
 
     function execute(message, callback) {
-        var json = message;
-        var uname = json.user.screen_name;
-        if (counter[uname] === undefined) {
-            counter[uname] = 1;
-        } else {
-            counter[uname]++;
-        }
-        if (json.text.match(/norway/gi)) {
-            console.log('test.js : '
-                + uname + ': '
-                + JSON.stringify(json.text)
-                + ' (' + counter[uname] + ')'
-            );
+        if (message.text != undefined) {
+            if (message.text.match(/norway/gi)) {
+                console.log('boilerplate.js : '
+                    + JSON.stringify(message.text)
+                );
+            }
         }
         callback();
     }
@@ -42,7 +35,8 @@ var Boilerplate = function (options) {
     that = {
         version: version,
         init: init,
-        execute: execute
+        execute: execute,
+        name: name
     };
 
     // Call init when module is constructed.

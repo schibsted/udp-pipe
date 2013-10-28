@@ -1,7 +1,6 @@
 var Filelogger = function (options) {
     var that;
     var version = '1.0.0';
-    var counter = {};
     var logger;
 
     function init(opt){
@@ -21,14 +20,8 @@ var Filelogger = function (options) {
     }
 
     function execute(message, callback) {
-        var json = message;
-        var uname = json.user.screen_name;
-        if (counter[uname] === undefined) {
-            counter[uname] = 1;
-        } else {
-            counter[uname]++;
-        }
-        logger.trace(json);
+        // TODO: Should this log events as well?
+        logger.trace(message);
         callback();
     }
 

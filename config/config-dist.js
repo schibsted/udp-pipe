@@ -42,7 +42,14 @@ module.exports = {
             credentials_file: '/tmp/aws_credentials.json',
             queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
             batch_size: 10
+        },
+
+        'mixpanel.js' : {
+            disabled : true,
+            name  : 'mixpanel',
+            debug_token : 'Your Mixpanel token for a debug project'
         }
+
     }
 };
 
