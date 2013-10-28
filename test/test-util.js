@@ -25,13 +25,6 @@ exports.group = {
         test.strictEqual(util.format_number(undefined, 3, ',', '.'), '0,000');
         test.done();
     },
-    'sprintf' : function (test) {
-        //test.expect();
-        test.strictEqual(util.sprintf("%01.2f", 123.1), '123.10');
-        test.strictEqual(util.sprintf("%04d", 123.1), '0123');
-        // TODO: Write more tests for sprintf.
-        test.done();
-    },
 
 
 
