@@ -6,9 +6,7 @@ console.log("\n\n"
     + '============================='
     + "");
 
-// Modules.
 var colors = require('colors');
-
 var util = require('./lib/util.js');
 console.log('lib/util.js version : ' + util.version.yellow);
 
@@ -16,29 +14,21 @@ console.log('lib/util.js version : ' + util.version.yellow);
 var argv = util.process_args();
 // TODO: Merge argv and opt with arg as primary
 
-// Options for the server.
 var opt = require(argv.c || './config/config.js');
 
 var Logserver = require('./lib/logserver.js');
 var logserver = new Logserver();
+var stats_server = require('./lib/stats_server.js');
+
 console.log('lib/logserver.js version : ' + logserver.version.yellow);
 
-// Default behavior
 process.on('SIGHUP', function () {
     util.clog('Got SIGHUP signal.'.red);
     util.clog('Recycling log handles.'.red);
     logserver.reload_process(opt);
 });
 
+stats_server.process_stats(opt);
+stats_server.start(opt, __dirname);
 
-// Create process stats logging.
-logserver.process_stats(opt);
-
-// Web socket client webpage.
-logserver.web_server(opt, __dirname);
-
-// Web socket server.
-logserver.web_socket_server(opt);
-
-// Launch server instance.
 logserver.udp_server(opt);
