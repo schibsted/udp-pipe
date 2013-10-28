@@ -5,12 +5,6 @@ var util = new UtilClass();
 
 
 exports.group = {
-    'clog' : function (test) {
-        test.expect(2);
-        test.ok(function () { util.clog() }, 'without input');
-        test.ok(function () { util.clog('With some text data...') }, 'with input data');
-        test.done();
-    },
     'process_args from input' : function (test) {
         test.expect(1);
         test.doesNotThrow(function () { util.process_args() });
