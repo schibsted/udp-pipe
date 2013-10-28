@@ -20,7 +20,7 @@ var aws_sqs = function (options) {
                 MessageBody: message
             });
 
-            if(internal_queue.length > 9) {
+            if(internal_queue.length >= options.batch_size) {
                 sqs.sendMessageBatch({
                     QueueUrl: options.queue_url,
                     Entries: internal_queue
