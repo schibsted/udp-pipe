@@ -18,7 +18,7 @@ var Dumper = function (options) {
         });
     }
 
-    function execute(message, callback) {
+    function execute(message, remote_address_info, callback) {
         logger.trace(message);
         callback();
     }

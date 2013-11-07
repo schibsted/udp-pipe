@@ -16,7 +16,7 @@ var Mixpanel = function (options) {
         }
     }
 
-    function execute(message, callback) {
+    function execute(message, remote_address_info, callback) {
         var message_data = JSON.parse(message);
         if (message_data.event != undefined && message_data.event.mixpanel != undefined) {
             // Decode JSON.
