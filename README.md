@@ -188,16 +188,16 @@ TODO: Must be rewritten to git.
 Prep code before switch.
 
     cd /srv/
-    sudo git clone git@github.com:schibsted/UDPlogger.git udp_logserver_2.0
-    sudo chgrp -R www-data ./udp_logserver_2.0/
-    sudo rm udp_logserver
-    sudo ln -s udp_logserver_2.0 udp_logserver
+    sudo git clone https://github.com/schibsted/UDPlogger.git udp_logserver_<version>
+    sudo git checkout <tag>
     sudo ln -s /etc/udp_logserver.conf ./udp_logserver/config/config.js
 
 Do the switch.
 
     sudo initctl stop logserver
     ps aux | grep logserver
+    sudo rm udp_logserver
+    sudo ln -s udp_logserver_<version> udp_logserver
     sudo initctl start logserver
     ps aux | grep logserver
 
