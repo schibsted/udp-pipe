@@ -5,21 +5,56 @@ module.exports = {
         file  : 'logserver.log',
         level : 'trace'
     },
-    mongo : {
-        connect    : false,
-        server     : 'mongo.example.com',
-        port       : 10030,
-        db         : 'database',
-        uname      : 'my username',
-        passwd     : 'my password',
-        collection : 'test'
-    },
     admin : {
         udp_server_port    : 8080,
         http_server_port   : 9998,
         http_server_port_2 : 9997,
         web_socket_port    : 9999
     },
-    foobar : 1
+    plugins : {
+        'boilerplate.js' : {
+            disabled : true,
+            execute_if_regexp : '.',
+            name  : 'logserver_boilerplate',
+            path  : '/tmp/',
+            file  : 'logserver_boilerplate.log',
+            level : 'trace'
+        },
+
+        'file_logger.js' : {
+            disabled : true,
+            execute_if_regexp : '"api_method":',
+            name  : 'logserver',
+            path  : '/tmp/',
+            file  : 'logserver.log',
+            level : 'trace'
+        },
+
+        'dumper.js': {
+            disabled: true,
+            execute_if_regexp : '"api_method":',
+            name: 'Dumper',
+            path: '/tmp/',
+            file: 'logserver_dumper.log',
+            level: 'trace'
+        },
+
+        'aws-sqs.js': {
+            disabled: true,
+            execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
+            name: 'AWS SQS',
+            credentials_file: '/tmp/aws_credentials.json',
+            queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
+            batch_size: 10
+        },
+
+        'mixpanel.js' : {
+            disabled : true,
+            execute_if_regexp : '"mixpanel":.+\\\\"(.append|.set|properties)\\\\"',
+            name  : 'mixpanel',
+            debug_token : 'Your Mixpanel token for a debug project'
+        }
+
+    }
 };
 

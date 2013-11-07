@@ -3,15 +3,28 @@ UDPlogger
 
 __What is this?__
 
-UDP logserver. Purpose is to collect excessive logging and save it to file without latency.
+UDP logserver. Purpose is to collect excessive logging and have plugins take action on the
+incoming messages.
+
+Standard plugins are:
+
+- boilerplate.js : Boilerplate for all new plugins.
+- dumper.js : Save message to file in JSON format.
+- file_logger.js : Save messages to file in JSON format. This is used for logging and importing into Splunk.
+- aws-sqs.js : Send incoming messages to Amazon SQS.
+- mixpanel.js : Send incoming messages to Mixpanel as events.
+
 
 __Why this?__
 
-An UDP logger removes the latency from connecting to a server or writing to a filehandle. We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
+An UDP logger removes the latency from connecting to a server or writing to a filehandle.
+Perfect for high traffic websites who wants to monitor events, API endpoints or other
+actions.
 
 __How does this work?__
 
 You create an UDP package inside you code and send it to the server without waiting for a reply.
+This means no latency at all inside your code.  
 
 
 ## Content
@@ -31,20 +44,26 @@ You create an UDP package inside you code and send it to the server without wait
 
 ### Local instance
 
+- Install Node.js: http://nodejs.org/download/
 - Get code base via svn.
 - Install Node.js
-- Go to code base dir.
+- Install dependencies.
+- Run with Grunt.
 
 Run cmd:
 
-    cd ~/
-    git clone https://
-
+    sudo npm install -g grunt-cli
+    cd ~/<your project folder>/
+    git clone git@github.com:schibsted/UDPlogger.git
+    cd UDPlogger
+    npm install
     cp ./config/config-dist.js ./config/config.js
-    node server.js
+    grunt run
 
-    # Or run with config-dist.js
-    node server.js -c ./config/config-dist.js
+Now watch your UDPlogger in action:
+
+- Point your browser to http://127.0.0.1:9998/client/
+- Run one of the clients below to generate traffic.
 
 
 ### Server instance
@@ -53,17 +72,35 @@ Install Node.js.
 
     sudo apt-get install node
 
+
+Install code and dependencies.
+
 - Install code base where you want it.
-- Go to code base dir.
+- Install dependencies from package.json
+- Prep config file with the correct settings.
+- Run with Grunt to test.
+- Stop Grunt test.
+
+Let's go:
+
+    sudo npm install -g grunt-cli
+    cd ~/<your project folder>/
+    git clone git@github.com:schibsted/UDPlogger.git
+    cd UDPlogger
+    npm install
+    cp ./config/config-dist.js /etc/udp_logserver.conf
+    emacs /etc/udp_logserver.conf
+    ln -s /etc/udp_logserver.conf ./config/config.js
+    grunt run
+    <ctrl> + c
+
 
 Edit and install upstart file.
 
     sudo cp ./upstart-logserver.conf /etc/init/udp_logserver.conf
     sudo emacs /etc/init/udp_logserver.conf
-    sudo mkdir /var/log/udp_logserver/
-    sudo mkdir /var/run/udp_logserver/
-    sudo mkdir /data/udp_logserver/
-    sudo chown -R www-data.www-data /var/log/udp_logserver/ /var/run/udp_logserver/ /data/udp_logserver/
+    sudo mkdir /var/log/udp_logserver/ /data/udp_logserver/
+    sudo chown -R www-data.www-data /var/log/udp_logserver/ /data/udp_logserver/
 
 Start server
 
@@ -124,7 +161,6 @@ Most settings is available from ./config/config.js.
 Make your own plugins to be able to:
 
 - Parse the message content and trigger actions.
-- Filter/alter the message content before inserted into logfile.
 
 This is how you do it:
 
@@ -134,59 +170,69 @@ This is how you do it:
 - Hack away with your plugin :)
 
 
+
 ## Deployment howto
+
+TODO: Must be rewritten to git.
 
 ### Tag a new release
 
-    svn copy https://subversion.assembla.com/svn/spid-operations.UDPlogger/trunk \
-        https://subversion.assembla.com/svn/spid-operations.UDPlogger/tags/0.2.5 -m "Release 0.2.5"
-
-
-### Making new stable tag
-
-    svn rm https://subversion.assembla.com/svn/spid-operations.UDPlogger/tags/stable -m "Replacing stable with trunc."
-
-    svn copy https://subversion.assembla.com/svn/spid-operations.UDPlogger/trunk \
-        https://subversion.assembla.com/svn/spid-operations.UDPlogger/tags/stable -m "Release 0.2.5 is now stable."
+    git co master
+    # Merge all new tested features from dev branch.
+    git tag -a RELEASE_2.0 -m 'Version 2.0'
+    git push --tags
 
 
 ### Export a new release on the server
 
+Prep code before switch.
+
     cd /srv/
-    svn export https://subversion.assembla.com/svn/spid-operations.UDPlogger/tags/stable udp_logserver_0.2.5
-    rm udp_logserver
-    ln -s udp_logserver_0.2.5 udp_logserver
-    ln -s /etc/udp_logserver.conf ./udp_logserver/config/config.js
-    sudo chgrp -R www-data ./udp_logserver_0.2.5/
+    sudo git clone git@github.com:schibsted/UDPlogger.git udp_logserver_2.0
+    sudo chgrp -R www-data ./udp_logserver_2.0/
+    sudo rm udp_logserver
+    sudo ln -s udp_logserver_2.0 udp_logserver
+    sudo ln -s /etc/udp_logserver.conf ./udp_logserver/config/config.js
+
+Do the switch.
+
     sudo initctl stop logserver
+    ps aux | grep logserver
     sudo initctl start logserver
     ps aux | grep logserver
+
+Check log files.
+
     sudo tail /var/log/upstart/logserver.log
     sudo tail /var/log/udp_logserver/udp_logserver.log
-    sudo cat /var/run/udp_logserver/udp_logserver.pid
+    sudo cat /var/run/udp_logserver.pid
     sudo tail -f /data/udp_logserver/udp_logserver.log | ./udp_logserver/node_modules/bunyan/bin/bunyan
 
 
 ## TODO
 
-- Add unit testing. Should have been done first, but you know how it is...
-- Add plugin examples. Event trigger example. Output filter example.
-- Add pretty view inside admin client. DONE.
+- Add Nagios probe.
+- Add more monitoring possibilities.
+
 
 
 ## Authors
 
 **Øistein Sørensen**
 
-+ [Øistein on Twitter](http://litt.no/twitter)
-+ [Øistein on LinkedIn](http://litt.no/linkedin)
-+ [Øistein on Instagram](http://instagram.com/sorenso)
++ [Øistein on Twitter](https://twitter.com/sorenso)
++ [Øistein on LinkedIn](http://no.linkedin.com/in/sorenso/)
+
+**Magne Thyrhaug**
+
++ [Magne on Twitter](https://twitter.com/magnethy)
++ [Magne on LinkedIn](http://no.linkedin.com/in/magnethyrhaug)
 
 
 Copyright and license
 ---------------------
 
-Copyright 2012 sorenso@gmail.com
+Copyright 2013
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this work except in compliance with the License.

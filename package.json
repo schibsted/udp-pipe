@@ -1,22 +1,37 @@
 {
-  "name": "UDP logserver",
+  "name": "UDPlogger",
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js",
+    "test": "grunt test"
   },
   "version": "0.2.5",
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.x"
   },
   "dependencies": {
-    "bunyan"   : "0.6",
-    "colors"   : "0.6.0",
-    "express"  : "3.0.0",
-    "measured" : "0.1.3",
-    "mongodb"  : "1.1.10",
-    "nodeunit" : "0.7.4",
-    "ntwitter" : "0.5.0",
-    "optimist" : "0.3.4",
-    "tail"     : "*",
-    "ws"       : "0.4.22"
+    "aws-sdk": "1.9.0",
+    "bunyan": ">=0.6",
+    "colors": ">=0.6.*",
+    "express": ">=3.0.0",
+    "measured": ">=0.1.3",
+    "nodeunit": ">=0.7.4",
+    "ntwitter": "0.5.0",
+    "optimist": ">=0.3.4",
+    "tail": "*",
+    "ws": ">=0.4.22",
+    "node-uuid": "1.4.x",
+    "winston": "0.7.x",
+    "useragent": "~2.0.7"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "coffee-script": "*",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-mocha-test": "*",
+    "grunt-nodemon": "~0.1.1",
+    "grunt-concurrent": "~0.4.1"
   }
 }

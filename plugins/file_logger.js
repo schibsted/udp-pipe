@@ -1,15 +1,14 @@
-var Boilerplate = function (options) {
+var Filelogger = function (options) {
     var that;
     var version = '1.0.0';
     var logger;
-    var name = "boilerplate";
     var regular_expression;
 
     function regexp() {
         return regular_expression;
     }
 
-    function init(opt){
+    function init(opt) {
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
@@ -29,13 +28,8 @@ var Boilerplate = function (options) {
     }
 
     function execute(message, callback) {
-        if (message.text != undefined) {
-            if (message.text.match(/norway/gi)) {
-                console.log('boilerplate.js : '
-                    + JSON.stringify(message.text)
-                );
-            }
-        }
+        // TODO: Should this log events as well?
+        logger.trace(message);
         callback();
     }
 
@@ -45,7 +39,7 @@ var Boilerplate = function (options) {
         init: init,
         execute: execute,
         regexp: regexp,
-        name: name
+        name: "file_logger"
     };
 
     // Call init when module is constructed.
@@ -55,4 +49,4 @@ var Boilerplate = function (options) {
     return that;
 };
 
-module.exports = Boilerplate;
+module.exports = Filelogger;

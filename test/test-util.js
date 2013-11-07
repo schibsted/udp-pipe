@@ -5,12 +5,6 @@ var util = new UtilClass();
 
 
 exports.group = {
-    'clog' : function (test) {
-        test.expect(2);
-        test.ok(function () { util.clog() }, 'without input');
-        test.ok(function () { util.clog('With some text data...') }, 'with input data');
-        test.done();
-    },
     'process_args from input' : function (test) {
         test.expect(1);
         test.doesNotThrow(function () { util.process_args() });
@@ -23,13 +17,6 @@ exports.group = {
         test.strictEqual(util.format_number(1234.1234, 1, ','),      '1,234,1');
         test.strictEqual(util.format_number(1234.1234, 3, ',', '.'), '1.234,123');
         test.strictEqual(util.format_number(undefined, 3, ',', '.'), '0,000');
-        test.done();
-    },
-    'sprintf' : function (test) {
-        //test.expect();
-        test.strictEqual(util.sprintf("%01.2f", 123.1), '123.10');
-        test.strictEqual(util.sprintf("%04d", 123.1), '0123');
-        // TODO: Write more tests for sprintf.
         test.done();
     },
 
