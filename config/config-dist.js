@@ -14,6 +14,7 @@ module.exports = {
     plugins : {
         'boilerplate.js' : {
             disabled : true,
+            execute_if_regexp : '.',
             name  : 'logserver_boilerplate',
             path  : '/tmp/',
             file  : 'logserver_boilerplate.log',
@@ -22,6 +23,7 @@ module.exports = {
 
         'file_logger.js' : {
             disabled : true,
+            execute_if_regexp : '"api_method":',
             name  : 'logserver',
             path  : '/tmp/',
             file  : 'logserver.log',
@@ -29,15 +31,17 @@ module.exports = {
         },
 
         'dumper.js': {
+            disabled: true,
+            execute_if_regexp : '"api_method":',
             name: 'Dumper',
             path: '/tmp/',
             file: 'logserver_dumper.log',
-            level: 'trace',
-            disabled: true
+            level: 'trace'
         },
 
         'aws-sqs.js': {
             disabled: true,
+            execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
             name: 'AWS SQS',
             credentials_file: '/tmp/aws_credentials.json',
             queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
@@ -46,6 +50,7 @@ module.exports = {
 
         'mixpanel.js' : {
             disabled : true,
+            execute_if_regexp : '"mixpanel":.+\\\\"(.append|.set|properties)\\\\"',
             name  : 'mixpanel',
             debug_token : 'Your Mixpanel token for a debug project'
         }

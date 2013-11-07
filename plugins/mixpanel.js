@@ -3,15 +3,24 @@ var Mixpanel = function (options) {
     var version = '1.0.0';
     var name = "mixpanel";
     var Mixpanel = require('mixpanel');
+    var Useragent = require('useragent');
+    var regular_expression;
+
+    function regexp() {
+        return regular_expression;
+    }
 
     function init(opt) {
-
+        if (opt.execute_if_regexp != undefined) {
+            regular_expression = new RegExp(opt.execute_if_regexp);
+        }
     }
 
     function execute(message, callback) {
-        if (message.event.mixpanel != undefined) {
+        var message_data = JSON.parse(message);
+        if (message_data.event != undefined && message_data.event.mixpanel != undefined) {
             // Decode JSON.
-            var mixpanel_data = JSON.parse(message.event.mixpanel);
+            var mixpanel_data = JSON.parse(message_data.event.mixpanel);
 
             if (options.debug_token) {
                 mixpanel_data.$token = options.debug_token;
@@ -21,21 +30,25 @@ var Mixpanel = function (options) {
             if (mixpanel_data.event != undefined) {
                 // Remove time to be compatible with this module. If time is set it will use import endpoint instead of track.
                 delete mixpanel_data.properties.time;
+
+                // Testing parsing of user_agent string into browser, os and device.
+                var agent = Useragent.parse(mixpanel_data.properties['User agent']);
+                mixpanel_data.properties.$browser = agent.family;
+                mixpanel_data.properties.$os = agent.os.family;
+                mixpanel_data.properties.device = agent.device.family;
+
                 mixpanel.track(mixpanel_data.event, mixpanel_data.properties, function(err) { if (err) throw err; });
 
             } else if (mixpanel_data.$distinct_id) {
                 mixpanel.people.set(mixpanel_data.$distinct_id, mixpanel_data.$set, function(err) { if (err) throw err; });
 
             }
-            // revenue
+            // people revenue
+
+            // people traits
+
             // other stuff?
 
-            var mixpanel_json = JSON.stringify(mixpanel_data);
-
-            // Log Mixpanel data.
-            console.log('mixpanel.js : '
-                + mixpanel_json
-            );
         }
         callback();
     }
@@ -45,6 +58,7 @@ var Mixpanel = function (options) {
         version: version,
         init: init,
         execute: execute,
+        regexp: regexp,
         name: name
     };
 

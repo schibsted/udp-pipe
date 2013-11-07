@@ -5,8 +5,16 @@ var aws_sqs = function (options) {
     var version = '1.0.0';
     var sqs;
     var internal_queue = [];
+    var regular_expression;
 
-    function init(){
+    function regexp() {
+        return regular_expression;
+    }
+
+    function init() {
+        if (options.execute_if_regexp != undefined) {
+            regular_expression = new RegExp(options.execute_if_regexp);
+        }
         AWS.config.loadFromPath(options.credentials_file);
         sqs = new AWS.SQS({apiVersion: '2012-11-05'});
     }
@@ -24,7 +32,7 @@ var aws_sqs = function (options) {
                     QueueUrl: options.queue_url,
                     Entries: internal_queue
                 }, function(err, data) {
-                    if(err) console.log("Error: " + err);
+                    if(err) console.log("Error: " + err.stack);
                     else callback();
                 });
                 internal_queue = [];
@@ -46,6 +54,7 @@ var aws_sqs = function (options) {
         version: version,
         init: init,
         execute: execute,
+        regexp: regexp,
         name: options.name
     };
 };
