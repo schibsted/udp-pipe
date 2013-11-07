@@ -20,7 +20,8 @@
     "tail": "*",
     "ws": ">=0.4.22",
     "node-uuid": "1.4.x",
-    "winston": "0.7.x"
+    "winston": "0.7.x",
+    "useragent": "~2.0.7"
   },
   "devDependencies": {
     "mocha": "*",
