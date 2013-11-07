@@ -28,7 +28,7 @@ var Boilerplate = function (options) {
         });
     }
 
-    function execute(message, callback) {
+    function execute(message, remote_address_info, callback) {
         if (message.text != undefined) {
             if (message.text.match(/norway/gi)) {
                 console.log('boilerplate.js : '

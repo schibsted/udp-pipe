@@ -19,7 +19,7 @@ var aws_sqs = function (options) {
         sqs = new AWS.SQS({apiVersion: '2012-11-05'});
     }
 
-    function execute(message, callback) {
+    function execute(message, remote_address_info, callback) {
         if(options.batch_size > 1) {
             // too naïve.
             internal_queue.push({

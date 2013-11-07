@@ -3,6 +3,7 @@ var Filelogger = function (options) {
     var version = '1.0.0';
     var logger;
     var regular_expression;
+    var util = require('../lib/util');
 
     function regexp() {
         return regular_expression;
@@ -27,9 +28,25 @@ var Filelogger = function (options) {
         });
     }
 
-    function execute(message, callback) {
-        // TODO: Should this log events as well?
-        logger.trace(message);
+    function execute(message, remote_address_info, callback) {
+        var start = process.hrtime();
+        var content = {
+            timestamp : util.iso_date(),
+            from      : remote_address_info.address,
+            port      : remote_address_info.port
+        };
+        try {
+            var message_data   = JSON.parse(message);
+            content['message'] = message_data;
+        } catch (err) {
+            var message_data   = message.toString('utf8');
+            content['message'] = message_data;
+        }
+        var end            = process.hrtime(start);
+        var total_time     = end[0] + (end[1] / 1000000000);
+        content.total_time = total_time;
+
+        logger.trace(content);
         callback();
     }
 
