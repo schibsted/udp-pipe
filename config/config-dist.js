@@ -53,6 +53,15 @@ module.exports = {
             execute_if_regexp : '"mixpanel":.+\\\\"(.append|.set|properties)\\\\"',
             name  : 'mixpanel',
             debug_token : 'Your Mixpanel token for a debug project'
+        },
+
+        'mixpanel_file_logger.js' : {
+            disabled : false,
+            execute_if_regexp : '"mixpanel":.+\\\\"(.append|.set|properties)\\\\"',
+            name  : 'logserver',
+            path  : '/tmp/',
+            file  : 'mixpanel_logserver.log',
+            level : 'trace'
         }
 
     }
