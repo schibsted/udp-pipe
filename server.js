@@ -1,11 +1,3 @@
-// Version
-var version = '2.0';
-console.log("\n\n"
-    + 'SPiD UDP LogServer ' + version
-    + "\n"
-    + '============================='
-    + "");
-
 var colors = require('colors');
 var util = require('./lib/util.js');
 
@@ -14,6 +6,12 @@ var argv = util.process_args();
 // TODO: Merge argv and opt with arg as primary
 var config_file = argv.c || __dirname + '/config/config.js';
 var opt = require(config_file);
+
+console.log("\n\n" +
+    'SPiD UDP LogServer ' +
+    "\n" +
+    '=============================' +
+    "");
 
 var Logserver = require('./lib/logserver.js');
 var logserver = new Logserver();
