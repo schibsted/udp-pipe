@@ -1,6 +1,6 @@
 body {
-  padding-top: 60px;
-  padding-bottom: 40px;
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 table {
   width : 100%;
@@ -9,13 +9,39 @@ table {
   padding: 9px 0;
 }
 #last_log_lines {
-  height: 250px;
+  height: 350px;
   overflow: auto;
-  width: 700px;
+  width: 1100px;
   display: block;
 }
 
 xmp {
   font-size: 0.8em;
   line-height: 1.0em;
+}
+
+table {
+    margin : 0px 10px;
+}
+th {
+    text-align: left;
+}
+th, td {
+    line-height: 1.5em;
+    padding : 3px 3px;
+    vertical-align: top;
+}
+
+th.num,
+td.num {
+    text-align: right;
+}
+
+.hover_info {
+    cursor: pointer;
+}
+
+.label {
+    font-size:100%;
+    font-weight: normal;
 }
