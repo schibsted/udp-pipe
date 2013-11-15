@@ -1,141 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Logserver admin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- Bootstrap -->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/custom.css" rel="stylesheet">
-  <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <![endif]-->
-    </head>
-    <body>
-      <header>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-          <div class="navbar-inner">
-            <div class="container-fluid">
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </a>
-              <a class="brand" href="#">Logserver admin</a>
-              <div class="nav-collapse collapse">
-                <p class="navbar-text pull-right">
-                  Logged in as <a href="#" class="navbar-link">anonymous</a>
-                </p>
-                <ul class="nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <!--li><a href="#about">About</a></li-->
-                </ul>
-              </div><!--/.nav-collapse -->
-            </div>
-          </div>
-        </div>
-      </header>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>UDPlogserver admin</title>
+    <!-- Bootstrap -->
+    <link href="bootstrap_3.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
 
-      <div class="container-fluid">
-        <div class="row-fluid">
-          <div class="span3">
-            <div class="well sidebar-nav">
-              <ul class="nav nav-list">
-                <li class="nav-header">Sidebar</li>
-                <li class="active"><a href="#">Logserver view</a></li>
-                <li><a href="#phpcode">PHP client</a></li>
-              </ul>
-            </div><!--/.well -->
-          </div><!--/span-->
-          <div class="span9">
-            <div class="hero-unit">
-              <!--h1>Logserver admin</h1-->
-              <p>
-                <table>
-                  <tr><th>Requests/sec</th></tr>
-                  <tr><td>Mean :         </td><td><span id="rps_mean"></span></td></tr>
-                  <tr><td>Count :        </td><td><span id="rps_count"></span></td></tr>
-                  <tr><td>Current Rate : </td><td><span id="rps_current_rate"></span></td></tr>
-                  <tr><td>Max Rate :     </td><td><span id="rps_max_rate"></span></td></tr>
-                  <tr><td>1 min rate :   </td><td><span id="rps_1MinuteRate"></span></td></tr>
-                  <tr><td>5 min rate :   </td><td><span id="rps_5MinuteRate"></span></td></tr>
-                  <tr><td>15 min rate :  </td><td><span id="rps_15MinuteRate"></span></td></tr>
-                  <tr><th>Other</th></tr>
-                  <tr><td>Memory Usage:  </td><td><span id="mem_usage"></span></td></tr>
-                  <tr><td>Uptime:        </td><td><span id="uptime"></span></td></tr>
-                  <tr><th>Log lines</th></tr>
-                  <tr><td>&nbsp;</td><td><xmp id="last_log_lines"class=""></xmp></td></tr>
-                </table>
-              </p>
-            </div>
-          </div><!--/span-->
-        </div><!--/row-->
-        <div class="row-fluid">
-          <div class="span4">
-            <a name="what"></a>
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">UDPlogserver admin</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</div>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <p>
+
+        <!--td rowspan="9">
+            <table id="plugins">
+                <tr>
+                    <th></th>
+                    <th class="num">Hits</th>
+                    <th class="num">Runtime</th>
+                    <th class="num">Avg</th>
+                    <th class="num">Max</th>
+                    <th class="num">Min</th>
+                    <th class="num">Total</th>
+                </tr>
+            </table>
+        </td-->
+
+        <table>
+            <tr id="plugins_name"><th class="">&nbsp;</th><th class="num">Core process</th></tr>
+            <tr id="plugins_count"><td>Count <a class="hover_info" data-content="The total of all values added to the meter.">?</a> </td><td class="num"><span id="rps_count" class="label label-success"></span></td></tr>
+            <tr id="plugins_mean"><td>Mean <a class="hover_info" data-content="The average rate since the meter was started">?</a> </td><td class="num"><span id="rps_mean"></span> <span class="text-muted">req/s</span></span></td></tr>
+            <tr id="plugins_current_rate"><td>Current Rate <a class="hover_info" data-content="The current rate.">?</a> </td><td class="num"><span class="label label-success"><span id="rps_current_rate"></span> req/s</span></td></tr>
+            <tr id="plugins_max_rate"><td>Max Rate <a class="hover_info" data-content="Maximum req package rate.">?</a> </td><td class="num"><span id="rps_max_rate"></span> <span class="text-muted">req/s</span></td></tr>
+            <tr id="plugins_one_min_rate"><td>1 min rate <a class="hover_info" data-content="The rate of the meter biased towards the last 1 minute.">?</a> </td><td class="num"><span id="rps_1MinuteRate"></span> <span class="text-muted">req/s</span></td></tr>
+            <tr id="plugins_five_min_rate"><td>5 min rate <a class="hover_info" data-content="The rate of the meter biased towards the last 5 minutes.">?</a> </td><td class="num"><span id="rps_5MinuteRate"></span> <span class="text-muted">req/s</span></td></tr>
+            <tr id="plugins_fifteen_min_rate"><td>15 min rate <a class="hover_info" data-content="The rate of the meter biased towards the last 15 minutes.">?</a> </td><td class="num"><span id="rps_15MinuteRate"></span> <span class="text-muted">req/s</span></td></tr>
+            <tr id="plugins_avg_execution_time"><td>Avg exec time <a class="hover_info" data-content="Average exec time.">?</a> </td><td class="num"><span class="label label-success"><span id="avg_execution_time"></span> s</span></td></tr>
+            <tr id="plugins_max_execution_time"><td>Max exec time <a class="hover_info" data-content="Max exec time.">?</a> </td><td class="num"><span id="max_execution_time"></span> <span class="text-muted">s</span></td></tr>
+            <tr id="plugins_min_execution_time"><td>Min exec time <a class="hover_info" data-content="Min exec time.">?</a> </td><td class="num"><span id="min_execution_time"></span> <span class="text-muted">s</span></td></tr>
+            <tr id="plugins_total_execution_time"><td>Total exec time <a class="hover_info" data-content="Total exec time as a sum of all executions.">?</a> </td><td class="num"><span id="total_execution_time"></span> <span class="text-muted">s</span></td></tr>
+            <tr><td>Memory Usage <a class="hover_info" data-content="Process memory usage.">?</a> </td><td class="num"><span id="mem_usage"></span> <span class="text-muted">MB</span></td></tr>
+            <tr id="plugins_run_time"><td>Uptime <a class="hover_info" data-content="Process uptime in seconds.">?</a> </td><td class="num"><span id="uptime"></span> <span class="text-muted">sec</span></td></tr>
+        </table>
+        </p>
+    </div>
+</div>
+
+<div class="container bs-callout bs-callout-info">
+    <p>
+    <table>
+        <tr><th>Log lines <a class="hover_info" data-content="Last 5 lines recorded by the reqlogger.">?</a></th></tr>
+        <tr><td><xmp id="last_log_lines"class=""></xmp></td></tr>
+    </table>
+    </p>
+</div>
+
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
             <h2>What is this?</h2>
             <p>
-              UDP logserver. Purpose is to collect excessive logging and save it to file without latency.
+                req logserver. Purpose is to collect excessive logging and save it to file without latency.
             </p>
-          </div><!--/span-->
-          <div class="span4">
-            <a name="why"></a>
+        </div>
+        <div class="col-md-4">
             <h2>Why this?</h2>
             <p>
-              An UDP logger removes the latency from connecting to a server or writing to a filehandle. 
-              We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
+                An req logger removes the latency from connecting to a server or writing to a filehandle.
+                We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
             </p>
-          </div><!--/span-->
-          <div class="span4">
-            <a name="how"></a>
+        </div>
+        <div class="col-md-4">
             <h2>How does this work?</h2>
             <p>
-              You create an UDP package inside you code and send it to the server without waiting for a reply.
+                You create an req package inside you code and send it to the server without waiting for a reply.
             </p>
-          </div><!--/span-->
-        </div><!--/row-->
+        </div>
+    </div>
+
+</div> <!-- /container -->
 
 
-        <div class="row-fluid">
-          <div class="span12">
-            <a name="phpcode"></a>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-12">
             <h2>PHP howto</h2>
             <p>
-<code class="language-php">
-&lt;?php
-  $server_ip   = '10.179.2.71';
-  $server_port = 8080;
-  $message     = 'Hello World';
+                <code class="language-php pre-scrollable">
+                    &lt;?php
+                    $server_ip   = '10.179.2.71';
+                    $server_port = 8080;
+                    $message     = 'Hello World';
 
-  print "Sending UDP to IP $server_ip, port $server_port\n";
+                    print "Sending req to IP $server_ip, port $server_port\n";
 
-  if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
-    socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
-  } else {
-    print("can't create socket\n");
-  }
-?&gt;
-</code>
-        </p>
-        <!--p><a class="btn" href="#">View details &raquo;</a></p-->
-      </div><!--/span-->
-    </div><!--/row-->
-
-
+                    if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_req)) {
+                    socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
+                    } else {
+                    print("can't create socket\n");
+                    }
+                    ?&gt;
+                </code>
+            </p>
+        </div>
+    </div>
     <hr>
     <footer>
-      <p>&copy; Schibsted Payment AS 2012</p>
+        <p>&copy; Company 2013</p>
     </footer>
-  </div><!--/.fluid-container-->
-  
+</div> <!-- /container -->
+
+
+
+
+
+
+
   <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="bootstrap/js/bootstrap.min.js"></script>
+  <script src="bootstrap_3.0.2/js/bootstrap.min.js"></script>
   <script src="js/websocket.js"></script>
   <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
   <script type="text/javascript">$.SyntaxHighlighter.init();</script>
+
+  <script type="text/javascript">
+      $(function() {
+          $('.hover_info').popover({
+              trigger : 'hover',
+              html : true
+          });
+      });
+  </script>
 </body>
 </html>
