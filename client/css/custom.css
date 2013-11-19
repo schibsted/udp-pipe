@@ -35,6 +35,7 @@ th, td {
 th.num,
 td.num {
     text-align: right;
+    width: 20%;
 }
 
 .hover_info {
