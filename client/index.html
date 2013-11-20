@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">UDPlogserver admin</a>
+            <a class="navbar-brand" href="#">UDP logserver admin</a>
         </div>
         <div class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
@@ -48,9 +48,8 @@
     </div>
 </div>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
+<div class="container">
+    <div class="row">
         <p>
 
         <!--td rowspan="9">
@@ -153,20 +152,20 @@
         <div class="col-md-4">
             <h2>What is this?</h2>
             <p>
-                req logserver. Purpose is to collect excessive logging and save it to file without latency.
+                UDP logserver. Purpose is to collect excessive logging and save it to file without latency.
             </p>
         </div>
         <div class="col-md-4">
             <h2>Why this?</h2>
             <p>
-                An req logger removes the latency from connecting to a server or writing to a filehandle.
-                We then stream the file into a tool like Splunk. That way we can store both formats for future tools.
+                An UDP logger removes the latency from connecting to a server or writing to a filehandle.
+                We then stream the file into a tool like Splunk or Mixpanel. That way we can store both formats for future tools.
             </p>
         </div>
         <div class="col-md-4">
             <h2>How does this work?</h2>
             <p>
-                You create an req package inside you code and send it to the server without waiting for a reply.
+                You create an UDP package inside you code and send it to the server without waiting for a reply.
             </p>
         </div>
     </div>
@@ -185,13 +184,12 @@
                     $server_ip   = '10.179.2.71';
                     $server_port = 8080;
                     $message     = 'Hello World';
-
                     print "Sending req to IP $server_ip, port $server_port\n";
 
                     if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_req)) {
-                    socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
+                        socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
                     } else {
-                    print("can't create socket\n");
+                        print("can't create socket\n");
                     }
                     ?&gt;
                 </code>

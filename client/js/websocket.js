@@ -18,6 +18,7 @@ var flot_options = {
     counter : 2,
     counter_5min : 1,
     graph_data_points : 750,
+    update_interval_5min : 60,
     data_series_map : {},
     data_series_5min_map : {},
     label_map : {
@@ -28,6 +29,10 @@ var flot_options = {
         '10' : 'danger'
     },
     options : {
+        grid : {
+            show : true,
+            borderWidth: 0
+        },
         xaxis:{
             mode: "time",
             timeformat: "%H:%M:%S",
@@ -43,6 +48,10 @@ var flot_options = {
         colors: ['#999999', '#808080', '#428bca', '#428bca', '#5cb85c', '#5cb85c', '#5bc0de', '#5bc0de', '#f0ad4e', '#f0ad4e', '#d9534f', '#d9534f']
     },
     options_5min : {
+        grid : {
+            show : true,
+            borderWidth: 0
+        },
         xaxis:{
             mode: "time",
             timeformat: "%H:%M:%S",
@@ -58,6 +67,10 @@ var flot_options = {
         colors: ['#999999', '#428bca', '#5cb85c', '#5bc0de', '#f0ad4e', '#d9534f']
     },
     time_options : {
+        grid : {
+            show : true,
+            borderWidth: 0
+        },
         xaxis:{
             mode: "time",
             timeformat: "%H:%M:%S",
@@ -156,14 +169,19 @@ function updateStats(opt) {
     if (flot_options.series_5min_array[0].data.length <= 2)
         flot_options.series_5min_array[0].data.push([stats.timestamp, stats['5MinuteRate']]);
 
-    if (now - last_time >= 5)
+    if (now - last_time >= flot_options.update_interval_5min)
         flot_options.series_5min_array[0].data.push([stats.timestamp, stats['5MinuteRate']]);
 
     // Keep the data series a manageable length
-    while (flot_options.series_array[0].data.length > flot_options.graph_data_points) {
-        for (var i in flot_options.series_array) {
+    for (var i in flot_options.series_array) {
+        while (flot_options.series_array[i].data.length > flot_options.graph_data_points) {
             flot_options.series_array[i].data.shift();
             flot_options.time_series_array[i].data.shift();
+        }
+    }
+    for (var i in flot_options.series_5min_array) {
+        while (flot_options.series_5min_array[i].data.length > flot_options.graph_data_points) {
+            flot_options.series_5min_array[i].data.shift();
         }
     }
 
@@ -202,7 +220,7 @@ function updateStats(opt) {
                 flot_options.series_array[i+1].data.push([stats.timestamp, value.one_minute_rate]);
                 flot_options.time_series_array[i].data.push([stats.timestamp, value.execution_time]);
                 flot_options.time_series_array[i+1].data.push([stats.timestamp, value.avg_execution_time]);
-                if (now - last_time >= 5)
+                if (now - last_time >= flot_options.update_interval_5min)
                     flot_options.series_5min_array[j].data.push([stats.timestamp, value.five_minute_rate]);
                 $('#' + key + '_total_execution_cnt').text(value.count.formatNum(0,' ',','));
                 $('#' + key + '_mean').text(value.mean.formatNum(1,' ',','));
