@@ -90,26 +90,44 @@ var flot_options = {
     series_5min_array : [],
     series : {
         lines: {
+            lineWidth: 0,
             show: true,
             fill: true
         },
+//        bars: {
+//            show: true,
+//            barWidth: 5,
+//            align: "center"
+//        },
         data: []
     },
     series2 : {
+        lines: {
+            lineWidth: 1,
+            show: true,
+            fill: false
+        },
         data: []
     },
     time_series : {
         lines: {
+            lineWidth: 0,
             show: true,
             fill: true
         },
         data: []
     },
     time_series2 : {
+        lines: {
+            lineWidth: 1,
+            show: true,
+            fill: false
+        },
         data: []
     },
     series_5min : {
         lines: {
+            lineWidth: 0,
             show: true,
             fill: true
         },
@@ -185,17 +203,16 @@ function updateStats(opt) {
         }
     }
 
-
     if (Object.prototype.toString.call( stats.plugins ) === '[object Object]') {
         $.each( stats.plugins, function( key, value ) {
             if ($('#' + key + '_total_execution_cnt').length == 0) {
                 flot_options.data_series_map[key] = flot_options.counter;
                 flot_options.data_series_5min_map[key] = flot_options.counter_5min;
-                flot_options.series_array[flot_options.counter] = { data : [] };
-                flot_options.series_array[flot_options.counter+1] = { data : [] };
-                flot_options.time_series_array[flot_options.counter] = { data : [] };
-                flot_options.time_series_array[flot_options.counter+1] = { data : [] };
-                flot_options.series_5min_array[flot_options.counter_5min] = { data : [] };
+                flot_options.series_array[flot_options.counter] = { lines: { lineWidth: 0, show: true, fill: true }, data : [] };
+                flot_options.series_array[flot_options.counter+1] = { lines: { lineWidth: 1, show: true, fill: false }, data : [] };
+                flot_options.time_series_array[flot_options.counter] = { lines: { lineWidth: 0, show: true, fill: true }, data : [] };
+                flot_options.time_series_array[flot_options.counter+1] = { lines: { lineWidth: 1, show: true, fill: false }, data : [] };
+                flot_options.series_5min_array[flot_options.counter_5min] = { lines: { lineWidth: 1, show: true, fill: false }, data : [] };
                 $('#plugins_name').append('<th class="num">' + key + '</th>');
                 $('#plugins_count').append('<td class="num"><span id="' + key + '_total_execution_cnt" class="label label-' + flot_options.label_map[flot_options.counter] +'"></span></td>');
                 $('#plugins_run_time').append('<td class="num"><span id="' + key + '_run_time"> </span> <span class="text-muted">s</span></td>');
