@@ -190,23 +190,24 @@ Prep code before switch.
 
     cd /srv/
     sudo git clone https://github.com/schibsted/UDPlogger.git udp_logserver_<version>
+    cd udp_logserver_<version>
     sudo git checkout <tag>
-    sudo ln -s /etc/udp_logserver.conf ./udp_logserver/config/config.js
+    sudo npm install
+    sudo ln -s /etc/udp_logserver.conf ./config/config.js
 
 Do the switch.
 
-    sudo initctl stop logserver
-    ps aux | grep logserver
-    sudo rm udp_logserver
-    sudo ln -s udp_logserver_<version> udp_logserver
-    sudo initctl start logserver
+    cd ..
+    sudo initctl stop logserver && sudo rm udp_logserver && sudo ln -s udp_logserver_<version> udp_logserver && sudo initctl start logserver
+    # sudo initctl stop udp_logserver && sudo rm udp_logserver && sudo ln -s udp_logserver_2.0.10 udp_logserver && sudo initctl start udp_logserver
+
     ps aux | grep logserver
 
 Check log files.
 
-    sudo tail /var/log/upstart/logserver.log
+    sudo tail /var/log/upstart/udp_logserver.log
     sudo tail /var/log/udp_logserver/udp_logserver.log
-    sudo cat /var/run/udp_logserver.pid
+    sudo cat /var/run/udp_logserver/udp_logserver.pid
     sudo tail -f /data/udp_logserver/udp_logserver.log | ./udp_logserver/node_modules/bunyan/bin/bunyan
 
 
