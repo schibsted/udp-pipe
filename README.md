@@ -85,7 +85,8 @@ Let's go:
 
     sudo npm install -g grunt-cli
     cd ~/<your project folder>/
-    git clone git@github.com:schibsted/UDPlogger.git
+    # git clone git@github.com:schibsted/UDPlogger.git
+    git clone https://github.com/schibsted/UDPlogger.git
     cd UDPlogger
     npm install
     cp ./config/config-dist.js /etc/udp_logserver.conf

@@ -42,7 +42,7 @@ module.exports = {
         'aws-sqs.js': {
             disabled: true,
             execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
-            name: 'AWS SQS',
+            name: 'AWS_SQS',
             credentials_file: '/tmp/aws_credentials.json',
             queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
             batch_size: 10

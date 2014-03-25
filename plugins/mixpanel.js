@@ -37,10 +37,10 @@ var Mixpanel = function (options) {
                 mixpanel_data.properties.$os = agent.os.family;
                 mixpanel_data.properties.device = agent.device.family;
 
-                mixpanel.track(mixpanel_data.event, mixpanel_data.properties, function(err) { if (err) throw err; });
+                mixpanel.track(mixpanel_data.event, mixpanel_data.properties, callback);
 
             } else if (mixpanel_data.$distinct_id) {
-                mixpanel.people.set(mixpanel_data.$distinct_id, mixpanel_data.$set, function(err) { if (err) throw err; });
+                mixpanel.people.set(mixpanel_data.$distinct_id, mixpanel_data.$set, callback);
 
             }
             // people revenue
@@ -50,7 +50,6 @@ var Mixpanel = function (options) {
             // other stuff?
 
         }
-        callback();
     }
 
     // Export functions and vars
