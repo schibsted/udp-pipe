@@ -21,7 +21,8 @@
     "ws": ">=0.4.22",
     "node-uuid": "1.4.x",
     "winston": "0.7.x",
-    "useragent": "~2.0.7"
+    "useragent": "~2.0.7",
+    "class.extend": "~0.9.1"
   },
   "devDependencies": {
     "mocha": "*",
