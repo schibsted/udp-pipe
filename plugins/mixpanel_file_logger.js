@@ -1,9 +1,10 @@
 var Mixpanel_file_logger = function (options) {
     var that;
-    var version = '1.0.0';
+    var version = '1.0.1';
     var logger;
     var regular_expression;
     var util = require('../lib/util');
+    var Logger = require('../lib/logger');
 
     function regexp() {
         return regular_expression;
@@ -13,19 +14,7 @@ var Mixpanel_file_logger = function (options) {
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
-        var Logger = require('bunyan');
-        // Setup file streams for logging.
-        logger = new Logger({
-            name: opt.name,
-            streams: [{
-                stream: process.stdout,
-                level: 'debug'
-            }, {
-                path: opt.path + opt.file,
-                level: opt.level
-            }],
-            serializers: Logger.stdSerializers
-        });
+        logger = new Logger(opt);
     }
 
     function execute(message, remote_address_info, callback) {

@@ -2,20 +2,10 @@ var Dumper = function (options) {
     var version = '1.0.0';
     var counter = {};
     var logger;
+    var Logger = require('../lib/logger');
 
     function init(opt){
-        var Logger = require('bunyan');
-        logger = new Logger({
-            name: opt.name,
-            streams: [{
-                stream: process.stdout,
-                level: 'debug'
-            }, {
-                path: opt.path + opt.file,
-                level: opt.level
-            }],
-            serializers: Logger.stdSerializers
-        });
+        logger = new Logger(opt);
     }
 
     function execute(message, remote_address_info, callback) {
