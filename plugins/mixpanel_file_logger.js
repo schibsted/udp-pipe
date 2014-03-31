@@ -19,25 +19,31 @@ var Mixpanel_file_logger = function (options) {
 
     function execute(message, remote_address_info, callback) {
         var start = process.hrtime();
-        var content = {
-            timestamp : util.iso_date(),
-            from      : remote_address_info.address,
-            port      : remote_address_info.port
-        };
-        try {
-            var message_data   = JSON.parse(message);
-            message_data['event']['mixpanel'] = JSON.parse(message_data['event']['mixpanel']);
-            content['message'] = message_data;
-        } catch (err) {
-            var message_data   = message.toString('utf8');
-            content['message'] = message_data;
+        if (!message.match( options.discard_if_match_regexp )) {
+            var content = {
+                timestamp : util.iso_date(),
+                from      : remote_address_info.address,
+                port      : remote_address_info.port
+            };
+            try {
+                var message_data   = JSON.parse(message);
+                message_data['event']['mixpanel'] = JSON.parse(message_data['event']['mixpanel']);
+                content['message'] = message_data;
+            } catch (err) {
+                var message_data   = message.toString('utf8');
+                content['message'] = message_data;
+            }
+            var end            = process.hrtime(start);
+            var total_time     = end[0] + (end[1] / 1000000000);
+            content.total_time = total_time;
+            logger.trace(content);
         }
-        var end            = process.hrtime(start);
-        var total_time     = end[0] + (end[1] / 1000000000);
-        content.total_time = total_time;
-
-        logger.trace(content);
         callback();
+    }
+
+    function end() {
+        logger.close();
+        logger = undefined;
     }
 
     // Export functions and vars
@@ -46,6 +52,7 @@ var Mixpanel_file_logger = function (options) {
         init: init,
         execute: execute,
         regexp: regexp,
+        end: end,
         name: "mixpanel_file_logger"
     };
 
