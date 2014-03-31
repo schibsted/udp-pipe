@@ -199,7 +199,7 @@ Do the switch.
 
     cd ..
     sudo initctl stop logserver && sudo rm udp_logserver && sudo ln -s udp_logserver_<version> udp_logserver && sudo initctl start logserver
-    # sudo initctl stop udp_logserver && sudo rm udp_logserver && sudo ln -s udp_logserver_2.0.10 udp_logserver && sudo initctl start udp_logserver
+    # sudo initctl stop udp_logserver && sudo rm udp_logserver && sudo ln -s udp_logserver_2.0.12 udp_logserver && sudo initctl start udp_logserver
 
     ps aux | grep logserver
 
