@@ -21,7 +21,7 @@ var Mixpanel_file_logger = function (options) {
         var start = process.hrtime();
         if (!message.match( options.discard_if_match_regexp )) {
             var content = {
-                timestamp : util.iso_date(),
+                timestamp : util.iso_timestamp(),
                 from      : remote_address_info.address,
                 port      : remote_address_info.port
             };

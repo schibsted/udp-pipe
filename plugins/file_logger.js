@@ -20,7 +20,7 @@ var Filelogger = function (options) {
     function execute(message, remote_address_info, callback) {
         var start = process.hrtime();
         var content = {
-            timestamp : util.iso_date(),
+            timestamp : util.iso_timestamp(),
             from      : remote_address_info.address,
             port      : remote_address_info.port
         };

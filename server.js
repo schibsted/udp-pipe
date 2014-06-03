@@ -8,9 +8,9 @@ var config_file = argv.c || __dirname + '/config/config.js';
 var opt = require(config_file);
 
 console.log("\n\n" +
-    'SPiD UDP LogServer ' +
+    'SPiD UDP LogServer ' + util.iso_timestamp() +
     "\n" +
-    '=============================' +
+    '=======================================' +
     "");
 
 var Logserver = require('./lib/logserver.js');
@@ -18,7 +18,7 @@ var logserver = new Logserver();
 var stats_server = require('./lib/stats_server.js');
 
 process.on('SIGHUP', function () {
-    console.log(util.iso_date() + ':');
+    console.log(util.iso_timestamp() + ':');
     console.log('Got SIGHUP signal.'.red);
     console.log('Recycling log file.'.red);
     opt = logserver.reload_module(config_file);
