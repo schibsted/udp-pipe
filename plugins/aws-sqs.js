@@ -15,7 +15,10 @@ var aws_sqs = function (options) {
         if (options.execute_if_regexp != undefined) {
             regular_expression = new RegExp(options.execute_if_regexp);
         }
-        AWS.config.loadFromPath(options.credentials_file);
+        if (options.credentials_file) {
+            AWS.config.loadFromPath(options.credentials_file);
+        }
+        AWS.config.update({region: 'eu-west-1'});
         sqs = new AWS.SQS({apiVersion: '2012-11-05'});
     }
 
