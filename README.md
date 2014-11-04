@@ -100,13 +100,13 @@ Edit and install upstart file.
 
     sudo cp ./upstart/upstart-UDPlogger.conf /etc/init/UDPlogger.conf
     sudo vim /etc/init/UDPlogger.conf
-    sudo mkdir -p /var/log/UDPlogger/ /data/UDPlogger/
-    sudo chown -R www-data.www-data /var/log/UDPlogger/ /data/UDPlogger/
+    sudo mkdir -p /var/log/UDPlogger/ /data/UDPlogger/ /var/run/UDPlogger/
+    sudo chown -R www-data.www-data /var/log/UDPlogger/ /data/UDPlogger/ /var/run/UDPlogger/
 
 Start server
 
     sudo initctl start UDPlogger
-    sudo tail -f /data/UDPlogger/UDPlogger.log
+    sudo tail -f /var/log/UDPlogger/UDPlogger.log
 
 
 ### Watch webinterface

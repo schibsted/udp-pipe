@@ -15,8 +15,6 @@ var Datadog = function (options) {
     var batch_size = options.batch_size || 10;
     var counter = 0;
 
-    console.log(options);
-
     function regexp() {
         return regular_expression;
     }
@@ -39,7 +37,7 @@ var Datadog = function (options) {
                     points: [
                         [now, total]
                     ],
-                    host: 'localhost',
+                    host: message_json.host || 'localhost',
                     type: 'gauge'
                 };
                 series.push(metric);
