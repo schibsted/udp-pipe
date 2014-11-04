@@ -86,27 +86,27 @@ Let's go:
     sudo npm install -g grunt-cli
     cd ~/<your project folder>/
     # git clone git@github.com:schibsted/UDPlogger.git
-    git clone https://github.com/schibsted/UDPlogger.git
+    sudo git clone https://github.com/schibsted/UDPlogger.git
     cd UDPlogger
-    npm install
-    cp ./config/config-dist.js /etc/udp_logserver.conf
-    emacs /etc/udp_logserver.conf
-    ln -s /etc/udp_logserver.conf ./config/config.js
+    sudo npm install
+    sudo cp ./config/config-dist.js /etc/udp_logserver.conf
+    sudo vim /etc/udp_logserver.conf
+    sudo ln -s /etc/udp_logserver.conf ./config/config.js
     grunt run
     <ctrl> + c
 
 
 Edit and install upstart file.
 
-    sudo cp ./upstart-logserver.conf /etc/init/udp_logserver.conf
-    sudo emacs /etc/init/udp_logserver.conf
-    sudo mkdir /var/log/udp_logserver/ /data/udp_logserver/
-    sudo chown -R www-data.www-data /var/log/udp_logserver/ /data/udp_logserver/
+    sudo cp ./upstart/upstart-UDPlogger.conf /etc/init/UDPlogger.conf
+    sudo vim /etc/init/UDPlogger.conf
+    sudo mkdir -p /var/log/UDPlogger/ /data/UDPlogger/
+    sudo chown -R www-data.www-data /var/log/UDPlogger/ /data/UDPlogger/
 
 Start server
 
-    sudo initctl start udp_logserver
-    sudo tail -f /data/udp_logserver/udp_logserver.log
+    sudo initctl start UDPlogger
+    sudo tail -f /data/UDPlogger/UDPlogger.log
 
 
 ### Watch webinterface

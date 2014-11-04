@@ -22,7 +22,8 @@
     "node-uuid": "1.4.x",
     "winston": "0.7.x",
     "useragent": "~2.0.7",
-    "class.extend": "~0.9.1"
+    "class.extend": "~0.9.1",
+    "dogapi": "~0.1.5"
   },
   "devDependencies": {
     "mocha": "*",
