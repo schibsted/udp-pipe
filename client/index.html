@@ -180,18 +180,19 @@
             <h2>PHP howto</h2>
             <p>
                 <code class="language-php pre-scrollable">
-                    &lt;?php
-                    $server_ip   = '127.0.0.1';
-                    $server_port = 8080;
-                    $message     = 'Hello World';
-                    print "Sending req to IP $server_ip, port $server_port\n";
+                    <pre>
+&lt;?php
+    $server_ip   = "127.0.0.1";
+    $server_port = 8080;
+    $message     = "Hello World";
+    print "Sending req to IP $server_ip, port $server_port\n";
 
-                    if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP) {
-                        socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
-                    } else {
-                        print("can't create socket\n");
-                    }
-                    ?&gt;
+    if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP))
+        socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
+    else
+        print("cannot create socket\n");
+?&gt;
+                    </pre>
                 </code>
             </p>
         </div>
