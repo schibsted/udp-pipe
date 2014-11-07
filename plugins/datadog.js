@@ -1,28 +1,36 @@
-var Datadog = function (options) {
-    var that;
+var Datadog = function (options, mock_services) {
+    var opts = options || {};
+    mock_services = mock_services || {};
+
     var version = '1.0.0';
-    var logger;
     var name = "datadog";
-    var dogapi = require('dogapi');
-    var dd = new dogapi({
-        api_key: options.api_key,
-        app_key: options.app_key,
-        api_version: options.api_version,
-        api_host: options.api_host
-    });
     var regular_expression;
+
+    var dogapi = mock_services.dogapi || require('dogapi');
+    var dd = mock_services.dd || new dogapi({
+        api_key: opts.api_key,
+        app_key: opts.app_key,
+        api_version: opts.api_version,
+        api_host: opts.api_host
+    });
     var series = [];
-    var batch_size = options.batch_size || 10;
+    var batch_size = opts.batch_size || 10;
     var counter = 0;
 
     function regexp() {
+        console.log('plugins/datadog.js: regexp()', regular_expression);
         return regular_expression;
     }
 
     function init(opt){
+        console.log('plugins/datadog.js: opts:', opt);
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
+    }
+
+    function end () {
+        //console.log('plugins/boilerplate.js: end()');
     }
 
     function execute(message, remote_address_info, callback) {
@@ -33,7 +41,7 @@ var Datadog = function (options) {
                 var total = message_json.timers[key].total * 1000;
                 var parsed_key = key.replace(/[^a-z0-9]+/gi, '.');
                 var metric = {
-                    metric: options.name + '.' + message_json.prefix + '.' + parsed_key,
+                    metric: opts.name + '.' + message_json.prefix + '.' + parsed_key,
                     points: [
                         [now, total]
                     ],
@@ -49,24 +57,27 @@ var Datadog = function (options) {
                 });
                 counter = 0;
                 series = [];
+            } else {
+                callback();
             }
+        } else {
+            callback();
         }
     }
 
+    // Call init when module is constructed.
+    init(opts);
+
     // Export functions and vars
-    that = {
+    return {
         version: version,
         init: init,
-        execute: execute,
         regexp: regexp,
+        execute: execute,
+        end: end,
         name: name
     };
 
-    // Call init when module is constructed.
-    init(options);
-
-    // Return object to make functions accessible.
-    return that;
 };
 
 module.exports = Datadog;

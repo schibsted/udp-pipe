@@ -1,58 +1,51 @@
-var Boilerplate = function (options) {
-    var that;
+var Boilerplate = function (options, mock_services) {
+    var opts = options || {};
+    mock_services = mock_services || {};
+
     var version = '1.0.0';
-    var logger;
     var name = "boilerplate";
     var regular_expression;
 
-    function regexp() {
+    function regexp () {
+        console.log('plugins/boilerplate.js: regexp()', regular_expression);
         return regular_expression;
     }
 
-    function init(opt){
+    function init (opt){
+        console.log('plugins/boilerplate.js: opts:', opt);
+        //console.log('plugins/boilerplate.js: init()');
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
-        var Logger = require('bunyan');
-        // Setup file streams for logging.
-        logger = new Logger({
-            name: opt.name,
-            streams: [{
-                stream: process.stdout,
-                level: 'debug'
-            }, {
-                path: opt.path + opt.file,
-                level: opt.level
-            }],
-            serializers: Logger.stdSerializers
-        });
     }
 
-    function execute(message, remote_address_info, callback) {
-        if (message.text != undefined) {
-            if (message.text.match(/norway/gi)) {
-                console.log('boilerplate.js : '
-                    + JSON.stringify(message.text)
-                );
+    function end () {
+        //console.log('plugins/boilerplate.js: end()');
+    }
+
+    function execute (message, remote_address_info, callback) {
+        var message_json = JSON.parse(JSON.parse(message));
+        if (message_json.text != undefined) {
+            if (message_json.text.match(/norway/gi)) {
+                console.log('plugins/boilerplate.js : ', message_json.text);
             }
         }
         callback();
     }
 
+    // Call init when module is constructed.
+    init(opts);
+
     // Export functions and vars
-    that = {
+    return {
         version: version,
         init: init,
-        execute: execute,
         regexp: regexp,
+        execute: execute,
+        end: end,
         name: name
     };
 
-    // Call init when module is constructed.
-    init(options);
-
-    // Return object to make functions accessible.
-    return that;
 };
 
 module.exports = Boilerplate;
