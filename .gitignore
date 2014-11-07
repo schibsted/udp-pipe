@@ -11,3 +11,4 @@ config/config.js
 *.iml
 .idea/
 example/
+coverage/
