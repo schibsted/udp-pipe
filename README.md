@@ -1,4 +1,4 @@
-UDPlogger
+UDPlogger [![Build Status](https://travis-ci.org/schibsted/UDPlogger.svg)](https://travis-ci.org/schibsted/UDPlogger)
 =========
 
 __What is this?__
