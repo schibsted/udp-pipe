@@ -11,7 +11,9 @@ var buster       = require('buster'),
     refute       = buster.refute,
     when         = require('when'),
     request      = require('request'),
+    path         = require('path'),
     EventEmitter = require('events').EventEmitter,
+    app_path     = __dirname + '/../../',
     opt          = require('../../config/config-test.js');
 
 var stats, logserver, stats_server;
@@ -29,12 +31,14 @@ buster.testCase('lib/logserver', {
             log: function () {},
             err: function () {}
         }});
-        opt = logserver.reload_module(__dirname + '/../../config/config-test.js');
+        opt = logserver.reload_module(path.normalize(__dirname + '/../../config/config-test.js'));
         stats = stats_server.create_process_stats();
-        stats_server.start(opt, __dirname, stats);
-        logserver.start_udp_server(opt, stats, function () {
-            done();
+        stats_server.start(opt, path.normalize(app_path), stats, function () {
+            logserver.start_udp_server(opt, stats, function () {
+                done();
+            });
         });
+
     },
     tearDown: function (done) {
         //console.log('==> tearDown');
