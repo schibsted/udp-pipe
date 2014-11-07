@@ -6,7 +6,7 @@ module.exports = {
         level : 'trace'
     },
     admin : {
-        udp_server_port    : 8080,
+        udp_server_port    : 9990,
         http_server_port   : 9998,
         http_server_port_2 : 9997,
         web_socket_port    : 9999
@@ -31,11 +31,11 @@ module.exports = {
         },
 
         'dumper.js': {
-            disabled: true,
-            execute_if_regexp : '"api_method":',
+            disabled: false,
+            execute_if_regexp : '.',
             name: 'Dumper',
-            path: '/tmp/',
-            file: 'logserver_dumper.log',
+            //path: '/tmp/',
+            //file: 'logserver_dumper.log',
             level: 'trace'
         },
 
