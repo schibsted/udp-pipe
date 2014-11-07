@@ -26,8 +26,13 @@ var Dumper = function (options, mock_services) {
     }
 
     function execute (message, remote_address_info, callback) {
-        var message_json = JSON.parse(JSON.parse(message));
-        console.log('plugins/dumper.js:', message_json);
+        try {
+            message = JSON.parse(message);
+        } catch (err) {}
+        try {
+            message = JSON.parse(message);
+        } catch (err) {}
+        console.log('plugins/dumper.js:', message);
         callback();
     }
 
