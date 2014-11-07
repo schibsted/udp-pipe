@@ -1,15 +1,17 @@
 var Dumper = function (options) {
     var version = '1.0.0';
     var counter = {};
-    var logger;
-    var Logger = require('../lib/logger');
 
-    function init(opt){
-        logger = new Logger(opt);
+    function init (opt) {
+        //console.log('plugins/dumper.js: init()');
     }
 
-    function execute(message, remote_address_info, callback) {
-        logger.trace(message);
+    function end() {
+        //console.log('plugins/dumper.js: end()');
+    }
+
+    function execute (message, remote_address_info, callback) {
+        console.log('plugins/dumper.js:', message);
         callback();
     }
 
@@ -20,8 +22,10 @@ var Dumper = function (options) {
         version: version,
         init: init,
         execute: execute,
+        end: end,
         name: "dumper"
     };
 };
+
 
 module.exports = Dumper;
