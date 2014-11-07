@@ -31,7 +31,7 @@ process.on('SIGHUP', function () {
 });
 
 var stats = stats_server.create_process_stats();
-stats_server.start(opt, __dirname, stats);
+stats_server.start(opt, app_path, stats);
 logserver.start_udp_server(opt, stats, function (address) {
     logger.log('Up and listening for UDP on: ' + address.address + ':' + address.port);
 });
