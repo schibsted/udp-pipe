@@ -11,20 +11,13 @@ var buster = require('buster'),
     refute = buster.refute,
     when   = require('when'),
     _      = require('underscore'),
-    plugin = require('../../plugins/datadog')({
+    plugin = require('../../plugins/dumper')({
         disabled: false,
-        execute_if_regexp : 'datadog',
-        name: 'datadog',
-        batch_size: 1
-    }, {
-        dd: {
-            add_metrics: function (series, callback) {
-                callback();
-            }
-        }
+        execute_if_regexp : '.',
+        name: 'dumper'
     });
 
-buster.testCase('plugins/datadog.js', {
+buster.testCase('plugins/dumper.js', {
     setUp: function () {
     },
 
@@ -41,21 +34,10 @@ buster.testCase('plugins/datadog.js', {
         },
 
         'execute': function (done) {
-            var message = {
-                "datadog": true,
-                "prefix": "datadog.test",
-                "foo": "This is my message",
-                "timers" : {
-                    total: 1234
-                }
-            };
-            plugin.execute(JSON.stringify(JSON.stringify(message)), {}, function () {
-                plugin.execute(JSON.stringify(JSON.stringify(message)), {}, function () {
-                    assert(true);
-                    done();
-                });
+            plugin.execute(JSON.stringify('{"foo": "This is my message"}'), {}, function () {
+                assert(true);
+                done();
             });
-
         },
 
         'regexp': function () {
