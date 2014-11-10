@@ -6,8 +6,7 @@
  */
 'use strict';
 
-var colors       = require('colors'),
-    app_path      = __dirname + '/',
+var app_path      = __dirname + '/',
     logger       = require(app_path + 'lib/logger')(),
     util         = require(app_path + 'lib/util.js')({ logger: logger }),
     logserver    = require(app_path + 'lib/logserver.js')({ logger: logger }),
@@ -23,10 +22,10 @@ logger.log('SPiD UDP LogServer ' + util.iso_timestamp());
 
 process.on('SIGHUP', function () {
     logger.log(util.iso_timestamp() + ':');
-    logger.log('Got SIGHUP signal.'.red);
-    logger.log('Recycling log file.'.red);
+    logger.log('Got SIGHUP signal.');
+    logger.log('Recycling log file.');
     opt = logserver.reload_module(config_file);
-    logger.log('Reloading plugins.'.red);
+    logger.log('Reloading plugins.');
     logserver.reload_process(opt);
 });
 
@@ -34,6 +33,7 @@ var stats = stats_server.create_process_stats();
 stats_server.start(opt, app_path, stats, function () {
     logserver.start_udp_server(opt, stats, function (address) {
         logger.log('Up and listening for UDP on: ' + address.address + ':' + address.port);
+        logger.log('debug','Up and listening for UDP on: ' + address.address + ':' + address.port);
     });
 });
 
