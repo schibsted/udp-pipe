@@ -1,18 +1,19 @@
-UDPlogger [![Build Status](https://travis-ci.org/schibsted/UDPlogger.svg)](https://travis-ci.org/schibsted/UDPlogger)
-=========
+# UDPlogger [![Build Status](https://travis-ci.org/schibsted/UDPlogger.svg)](https://travis-ci.org/schibsted/UDPlogger)
 
 __What is this?__
 
 UDP logserver. Purpose is to collect excessive logging and have plugins take action on the
 incoming messages.
 
-Standard plugins are:
+Current plugins are:
 
+- aws-sqs.js : Send incoming messages to Amazon SQS.
 - boilerplate.js : Boilerplate for all new plugins.
+- datadog.js : Send incoming messages to DataDog as metrics.
 - dumper.js : Save message to file in JSON format.
 - file_logger.js : Save messages to file in JSON format. This is used for logging and importing into Splunk.
-- aws-sqs.js : Send incoming messages to Amazon SQS.
 - mixpanel.js : Send incoming messages to Mixpanel as events.
+- mixpanel_file_logger.js : Log incoming messages to file as Mixpanel events.
 
 
 __Why this?__
@@ -24,7 +25,7 @@ actions.
 __How does this work?__
 
 You create an UDP package inside you code and send it to the server without waiting for a reply.
-This means no latency at all inside your code.  
+This means no latency inside your code.
 
 
 ## Content
@@ -45,8 +46,7 @@ This means no latency at all inside your code.
 ### Local instance
 
 - Install Node.js: http://nodejs.org/download/
-- Get code base via svn.
-- Install Node.js
+- Get code base via git.
 - Install dependencies.
 - Run with Grunt.
 
@@ -70,8 +70,8 @@ Now watch your UDPlogger in action:
 
 Install Node.js.
 
-    sudo apt-get install node
-
+    curl -sL https://deb.nodesource.com/setup | sudo bash -
+    sudo apt-get install nodejs
 
 Install code and dependencies.
 
@@ -85,7 +85,6 @@ Let's go:
 
     sudo npm install -g grunt-cli
     cd ~/<your project folder>/
-    # git clone git@github.com:schibsted/UDPlogger.git
     sudo git clone https://github.com/schibsted/UDPlogger.git
     cd UDPlogger
     sudo npm install
@@ -121,7 +120,7 @@ Start server
 
 Tail server log in a human readable format.
 
-    sudo tail -f /data/udp_logserver/udp_logserver.log | ./node_modules/bunyan/bin/bunyan
+    sudo tail -f /var/log/UDPlogger/UDPlogger.log | ./node_modules/bunyan/bin/bunyan
 
 
 ### Run PHP client for testing
@@ -174,8 +173,6 @@ This is how you do it:
 
 ## Deployment howto
 
-TODO: Must be rewritten to git.
-
 ### Tag a new release
 
     git co master
@@ -206,9 +203,9 @@ Do the switch.
 Check log files.
 
     sudo tail /var/log/upstart/udp_logserver.log
-    sudo tail /var/log/udp_logserver/udp_logserver.log
-    sudo cat /var/run/udp_logserver/udp_logserver.pid
-    sudo tail -f /data/udp_logserver/udp_logserver.log | ./udp_logserver/node_modules/bunyan/bin/bunyan
+    sudo tail /var/log/UDPlogger/UDPlogger.log
+    sudo cat /var/run/UDPlogger/UDPlogger.pid
+    sudo tail -f /var/log/UDPlogger/UDPlogger.log | ./node_modules/bunyan/bin/bunyan
 
 
 ## TODO
