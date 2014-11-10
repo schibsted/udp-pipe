@@ -25,7 +25,8 @@
     "class.extend": "~0.9.1",
     "dogapi": "~0.1.5",
     "underscore": "~1.7.0",
-    "when": "~3.5.2"
+    "when": "~3.5.2",
+    "winston-syslog": "~0.2.5"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.4",
