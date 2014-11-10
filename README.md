@@ -107,6 +107,23 @@ Start server
     sudo initctl start UDPlogger
     sudo tail -f /var/log/UDPlogger/UDPlogger.log
 
+Enable logging
+
+The server now uses winston which sends log messages to syslog.
+For this to work syslog needs to enables UDP on port 514.
+
+This can be done by creating the file /etc/rsyslog.d/40-udplogger.conf
+with the following content:
+
+    $ModLoad imudp
+    $UDPServerRun 514
+    UDPlogger.* /var/log/UDPlogger.log
+
+Then restart rsyslogd
+
+    sudo service rsyslog restart
+
+
 
 ### Watch webinterface
 
