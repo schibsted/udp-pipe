@@ -7,12 +7,12 @@ var Boilerplate = function (options, mock_services) {
     var regular_expression;
 
     function regexp () {
-        console.log('plugins/boilerplate.js: regexp()', regular_expression);
+        //console.log('plugins/boilerplate.js: regexp()', regular_expression);
         return regular_expression;
     }
 
     function init (opt){
-        console.log('plugins/boilerplate.js: opts:', opt);
+        //console.log('plugins/boilerplate.js: opts:', opt);
         //console.log('plugins/boilerplate.js: init()');
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
