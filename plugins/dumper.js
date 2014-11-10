@@ -9,20 +9,20 @@ var Dumper = function (options, mock_services) {
 
 
     function regexp () {
-        console.log('plugins/dumper.js: regexp()', regular_expression);
+        //console.log('plugins/dumper.js: regexp()', regular_expression);
         return regular_expression;
     }
 
     function init (opt) {
-        console.log('plugins/dumper.js: opts:', opt);
+        //console.log('plugins/dumper.js: opts:', opt);
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
-        console.log('plugins/dumper.js: init()');
+        //console.log('plugins/dumper.js: init()');
     }
 
     function end () {
-        console.log('plugins/dumper.js: end()');
+        //console.log('plugins/dumper.js: end()');
     }
 
     function execute (message, remote_address_info, callback) {
