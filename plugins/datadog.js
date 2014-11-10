@@ -18,12 +18,10 @@ var Datadog = function (options, mock_services) {
     var counter = 0;
 
     function regexp() {
-        console.log('plugins/datadog.js: regexp()', regular_expression);
         return regular_expression;
     }
 
     function init(opt){
-        console.log('plugins/datadog.js: opts:', opt);
         if (opt.execute_if_regexp != undefined) {
             regular_expression = new RegExp(opt.execute_if_regexp);
         }
