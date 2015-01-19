@@ -1,9 +1,10 @@
 module.exports = {
     log : {
-        name  : 'logserver',
-        path  : '/tmp/',
-        file  : 'logserver.log',
-        level : 'trace'
+        name    : 'logserver',
+        path    : '/tmp/',
+        file    : 'logserver.log',
+        level   : 'info', // debug|info|notice|warning|error|crit|alert|emerg
+        console : true
     },
     admin : {
         udp_server_port    : 9990,
@@ -45,6 +46,15 @@ module.exports = {
             name: 'AWS_SQS',
             credentials_file: '/tmp/aws_credentials.json',
             queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
+            batch_size: 10
+        },
+
+        'aws-kinesis.js': {
+            disabled: true,
+            execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
+            name: 'AWS_Kinesis',
+            credentials_file: '/tmp/aws_credentials.json',
+            stream_name: 'i-am-not-the-stream-you-are-looking-for',
             batch_size: 10
         },
 
