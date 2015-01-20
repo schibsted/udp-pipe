@@ -4,7 +4,7 @@ config["My tests"] = {
     environment: "node",
     rootPath: "../",
     tests: [
-        "test/**/*-test.js"
+        "all-tests.js"
     ],
 
     // buster-istanbul setup
@@ -13,7 +13,6 @@ config["My tests"] = {
         format: "lcov"
     },
     sources: [
-        "server.js",
         "lib/**/*.js",
         "plugins/**/*.js"
     ],
