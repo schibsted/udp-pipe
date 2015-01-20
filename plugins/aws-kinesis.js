@@ -42,7 +42,6 @@ var aws_kinesis = function (options) {
                         console.log(err);
                         callback(err);
                     } else {
-                        console.log(data);
                         callback(null, data);
                     }
                 });
