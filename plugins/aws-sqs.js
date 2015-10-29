@@ -43,7 +43,7 @@ var aws_sqs = function (options) {
         } else {
             sqs.sendMessage({
                 QueueUrl: options.queue_url,
-                MessageBody: JSON.stringify(message)
+                MessageBody: message
             }, function aws_sqs_callback(err, data) {
                 if(err) console.log("Error: " + err);
                 else callback();
