@@ -50,7 +50,7 @@ module.exports = function(grunt) {
                     'mkdir -p artifact',
                     'mv node_modules ../node_modules2',
                     'npm install --production',
-                    'tar -zcf artifact/udplogger.tar.gz .',
+                    'tar -zcf artifact/udp-pipe.tar.gz .',
                     'rm -rf node_modules',
                     'mv ../node_modules2 node_modules'
                 ].join('&&')
