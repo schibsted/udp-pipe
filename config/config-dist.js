@@ -54,6 +54,7 @@ module.exports = {
         'aws-kinesis.js': {
             disabled: true,
             execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
+            proxy: '',
             name: 'AWS_Kinesis',
             region: 'eu-west-1',
             credentials_file: '/tmp/aws_credentials.json',
