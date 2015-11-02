@@ -1,13 +1,14 @@
-# UDPlogger [![Build Status](https://travis-ci.org/schibsted/UDPlogger.svg)](https://travis-ci.org/schibsted/UDPlogger)
+# udp-pipe [![Build Status](https://travis-ci.org/schibsted/udp-pipe.svg)](https://travis-ci.org/schibsted/udp-pipe)
 
 __What is this?__
 
-UDP logserver. Purpose is to collect excessive logging and have plugins take action on the
+UDP server. Purpose is to collect excessive logging and have plugins take action on the
 incoming messages.
 
 Current plugins are:
 
 - aws-sqs.js : Send incoming messages to Amazon SQS.
+- aws-kinesis.js : Send incoming messages to Amazon Kinesis.
 - boilerplate.js : Boilerplate for all new plugins.
 - datadog.js : Send incoming messages to DataDog as metrics.
 - dumper.js : Save message to file in JSON format.
@@ -54,13 +55,13 @@ Run cmd:
 
     sudo npm install -g grunt-cli
     cd ~/<your project folder>/
-    git clone git@github.com:schibsted/UDPlogger.git
-    cd UDPlogger
+    git clone git@github.com:schibsted/udp-pipe.git
+    cd udp-pipe
     npm install
     cp ./config/config-dist.js ./config/config.js
     grunt run
 
-Now watch your UDPlogger in action:
+Now watch your udp-pipe in action:
 
 - Point your browser to http://127.0.0.1:9998/client/
 - Run one of the clients below to generate traffic.
@@ -85,8 +86,8 @@ Let's go:
 
     sudo npm install -g grunt-cli
     cd ~/<your project folder>/
-    sudo git clone https://github.com/schibsted/UDPlogger.git
-    cd UDPlogger
+    sudo git clone https://github.com/schibsted/udp-pipe.git
+    cd udp-pipe
     sudo npm install
     sudo cp ./config/config-dist.js /etc/udp_logserver.conf
     sudo vim /etc/udp_logserver.conf
@@ -97,27 +98,27 @@ Let's go:
 
 Edit and install upstart file.
 
-    sudo cp ./upstart/upstart-UDPlogger.conf /etc/init/UDPlogger.conf
-    sudo vim /etc/init/UDPlogger.conf
-    sudo mkdir -p /var/log/UDPlogger/ /data/UDPlogger/ /var/run/UDPlogger/
-    sudo chown -R www-data.www-data /var/log/UDPlogger/ /data/UDPlogger/ /var/run/UDPlogger/
+    sudo cp ./upstart/upstart-udp-pipe.conf /etc/init/udp-pipe.conf
+    sudo vim /etc/init/udp-pipe.conf
+    sudo mkdir -p /var/log/udp-pipe/ /data/udp-pipe/ /var/run/udp-pipe/
+    sudo chown -R www-data.www-data /var/log/udp-pipe/ /data/udp-pipe/ /var/run/udp-pipe/
 
 Start server
 
-    sudo initctl start UDPlogger
-    sudo tail -f /var/log/UDPlogger/UDPlogger.log
+    sudo initctl start udp-pipe
+    sudo tail -f /var/log/udp-pipe/udp-pipe.log
 
 Enable logging
 
 The server now uses winston which sends log messages to syslog.
 For this to work syslog needs to enables UDP on port 514.
 
-This can be done by creating the file /etc/rsyslog.d/40-udplogger.conf
+This can be done by creating the file /etc/rsyslog.d/40-udp-pipe.conf
 with the following content:
 
     $ModLoad imudp
     $UDPServerRun 514
-    UDPlogger.* /var/log/UDPlogger.log
+    udp-pipe.* /var/log/udp-pipe.log
 
 Then restart rsyslogd
 
@@ -137,7 +138,7 @@ Then restart rsyslogd
 
 Tail server log in a human readable format.
 
-    sudo tail -f /var/log/UDPlogger/UDPlogger.log | ./node_modules/bunyan/bin/bunyan
+    sudo tail -f /var/log/udp-pipe/udp-pipe.log | ./node_modules/bunyan/bin/bunyan
 
 
 ### Run PHP client for testing
@@ -203,7 +204,7 @@ This is how you do it:
 Prep code before switch.
 
     cd /srv/
-    sudo git clone https://github.com/schibsted/UDPlogger.git udp_logserver_<version>
+    sudo git clone https://github.com/schibsted/udp-pipe.git udp_logserver_<version>
     cd udp_logserver_<version>
     sudo git checkout <tag>
     sudo npm install
@@ -220,9 +221,9 @@ Do the switch.
 Check log files.
 
     sudo tail /var/log/upstart/udp_logserver.log
-    sudo tail /var/log/UDPlogger/UDPlogger.log
-    sudo cat /var/run/UDPlogger/UDPlogger.pid
-    sudo tail -f /var/log/UDPlogger/UDPlogger.log | ./node_modules/bunyan/bin/bunyan
+    sudo tail /var/log/udp-pipe/udp-pipe.log
+    sudo cat /var/run/udp-pipe/udp-pipe.pid
+    sudo tail -f /var/log/udp-pipe/udp-pipe.log | ./node_modules/bunyan/bin/bunyan
 
 
 ## TODO

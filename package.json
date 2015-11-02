@@ -1,8 +1,9 @@
 {
-  "name": "UDPlogger",
+  "name": "udp-pipe",
   "scripts": {
     "start": "node server.js",
-    "test": "grunt"
+    "test": "grunt",
+    "coverage": "istanbul cover ./all-tests.js"
   },
   "version": "2.0.7",
   "engines": {
