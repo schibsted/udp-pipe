@@ -1,5 +1,6 @@
 var AWS = require('aws-sdk');
 var uuid = require('node-uuid');
+var proxy = require('proxy-agent');
 
 var aws_sqs = function (options) {
     var version = '1.0.0';
@@ -18,7 +19,12 @@ var aws_sqs = function (options) {
         if (options.credentials_file) {
             AWS.config.loadFromPath(options.credentials_file);
         }
-        AWS.config.update({region: 'eu-west-1'});
+        if (options.proxy) {
+            AWS.config.update({
+                httpOptions: { agent: proxy(options.proxy) }
+            });
+        }
+        AWS.config.update({region: options.region});
         sqs = new AWS.SQS({apiVersion: '2012-11-05'});
     }
 

@@ -18,7 +18,12 @@ var aws_kinesis = function (options) {
         if (options.credentials_file) {
             AWS.config.loadFromPath(options.credentials_file);
         }
-        AWS.config.update({region: 'eu-west-1'});
+        if (options.proxy) {
+            AWS.config.update({
+                httpOptions: { agent: proxy(options.proxy) }
+            });
+        }
+        AWS.config.update({region: options.region});
         kinesis = new AWS.Kinesis({apiVersion: '2013-12-02'});
     }
 

@@ -43,7 +43,9 @@ module.exports = {
         'aws-sqs.js': {
             disabled: true,
             execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
+            proxy: '',
             name: 'AWS_SQS',
+            region: 'eu-west-1',
             credentials_file: '/tmp/aws_credentials.json',
             queue_url: 'https://i-am-not-the-queue-you-are-looking-for.com',
             batch_size: 10
@@ -52,7 +54,9 @@ module.exports = {
         'aws-kinesis.js': {
             disabled: true,
             execute_if_regexp : '"mixpanel":.+\\\\"(properties)\\\\"',
+            proxy: '',
             name: 'AWS_Kinesis',
+            region: 'eu-west-1',
             credentials_file: '/tmp/aws_credentials.json',
             stream_name: 'i-am-not-the-stream-you-are-looking-for',
             batch_size: 10
